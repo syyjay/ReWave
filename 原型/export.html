@@ -34,7 +34,7 @@
   </div>
 
   <div class="nav-bar">
-    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>编辑</span></div>
+    <div class="nav-left"><span class="nav-back" onclick="location.href='editor.html'"><i class="fa-solid fa-chevron-left"></i>编辑</span></div>
     <span class="nav-title">导出</span>
     <div class="nav-right"></div>
   </div>
@@ -51,7 +51,7 @@
       <div class="fmt-chip">M4A</div>
       <div class="fmt-chip active">WAV</div>
       <div class="fmt-chip">AAC</div>
-      <div class="fmt-chip"><span class="pro-badge">PRO</span>FLAC</div>
+      <div class="fmt-chip" onclick="rwPro('FLAC 无损导出','Pro 解锁 FLAC / AIFF / OPUS 等格式，最高 192kHz / 32bit。')"><span class="pro-badge">PRO</span>FLAC</div>
     </div>
 
     <!-- 质量参数 -->
@@ -62,7 +62,7 @@
         <div class="ml-auto flex gap-1.5">
           <span class="seg" style="min-width:56px;padding:7px 4px;">44.1k</span>
           <span class="seg active" style="min-width:44px;padding:7px 4px;">48k</span>
-          <span class="seg" style="min-width:44px;padding:7px 4px;">96k</span>
+          <span class="seg" style="min-width:44px;padding:7px 4px;" onclick="rwPro('96kHz 采样率','Pro 支持最高 192kHz / 32bit 导出。')">96k</span>
         </div>
       </div>
       <div class="divider mx-4"></div>
@@ -71,7 +71,7 @@
         <div class="ml-auto flex gap-1.5">
           <span class="seg" style="min-width:40px;padding:7px 4px;">16</span>
           <span class="seg active" style="min-width:40px;padding:7px 4px;">24</span>
-          <span class="seg" style="min-width:40px;padding:7px 4px;">32f</span>
+          <span class="seg" style="min-width:40px;padding:7px 4px;" onclick="rwPro('32bit 浮点','Pro 支持最高 192kHz / 32bit 导出。')">32f</span>
         </div>
       </div>
       <div class="divider mx-4"></div>
@@ -114,11 +114,58 @@
   </div>
 
   <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
-    <button class="btn btn-primary w-full">
+    <button class="btn btn-primary w-full" onclick="startExport()">
       <i class="fa-solid fa-arrow-up-from-bracket text-[14px]"></i>导出并分享
     </button>
-    <button class="btn btn-secondary w-full mt-2.5">仅保存到「文件」</button>
+    <button class="btn btn-secondary w-full mt-2.5" onclick="startExport()">仅保存到「文件」</button>
   </div>
+
+  <!-- 导出进度 → 完成提示 -->
+  <div id="exportOverlay" class="absolute inset-0 z-[95] flex flex-col items-center justify-center px-8" style="background:rgba(6,6,9,0.78);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .3s;">
+    <div id="exProgress" class="w-full max-w-[280px] text-center">
+      <div class="ib mx-auto" style="width:64px;height:64px;border-radius:20px;background:var(--rw-surface-2);">
+        <i class="fa-solid fa-file-export text-[24px]" style="color:var(--rw-primary);"></i>
+      </div>
+      <p class="text-[15px] font-bold mt-5">正在导出 WAV…</p>
+      <div class="rounded-full overflow-hidden mt-5" style="height:8px;background:rgba(255,255,255,0.08);">
+        <div id="exBar" class="h-full rounded-full" style="width:0%;background:var(--rw-primary-gradient);transition:width .3s ease;"></div>
+      </div>
+      <p class="mono text-[12px] t-3 mt-3"><span id="exPct">0</span>% · 剩余约 3 秒</p>
+    </div>
+    <div id="exDone" class="w-full max-w-[280px] text-center" style="display:none;">
+      <div class="ib g-brand mx-auto" style="width:64px;height:64px;border-radius:20px;box-shadow:var(--rw-shadow-brand);">
+        <i class="fa-solid fa-check text-[26px]"></i>
+      </div>
+      <p class="text-[17px] font-bold mt-5">导出完成</p>
+      <p class="mono text-[11px] t-3 mt-1.5">第42期播客_成品.wav · 128.4 MB</p>
+      <div class="flex flex-col gap-2.5 mt-6">
+        <button class="btn btn-secondary w-full" onclick="location.href='home.html'">打开文件</button>
+        <button class="btn btn-secondary w-full" onclick="location.href='editor.html'">继续编辑</button>
+        <button class="btn btn-primary w-full" onclick="location.href='home.html'">返回首页</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function startExport() {
+      var ov = document.getElementById('exportOverlay');
+      ov.style.opacity = 1; ov.style.pointerEvents = 'auto';
+      document.getElementById('exProgress').style.display = '';
+      document.getElementById('exDone').style.display = 'none';
+      var bar = document.getElementById('exBar'), pct = document.getElementById('exPct'), v = 0;
+      var t = setInterval(function () {
+        v = Math.min(100, v + Math.round(6 + Math.random() * 10));
+        bar.style.width = v + '%'; pct.textContent = v;
+        if (v >= 100) {
+          clearInterval(t);
+          setTimeout(function () {
+            document.getElementById('exProgress').style.display = 'none';
+            document.getElementById('exDone').style.display = '';
+          }, 350);
+        }
+      }, 160);
+    }
+  </script>
   <div class="home-indicator"></div>
 </div>
 <script src="assets/common.js"></script>

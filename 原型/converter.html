@@ -26,44 +26,44 @@
   <div class="scroll pb-4">
     <div class="page-head">
       <h1 class="page-title">转换中心</h1>
-      <span class="chip chip-gray mono"><i class="fa-solid fa-clock"></i>本月 38 次</span>
+      <span class="chip chip-gray mono cursor-pointer" onclick="rwToast('本月已转换 38 次 · Free 无限基础转换')"><i class="fa-solid fa-clock"></i>本月 38 次</span>
     </div>
 
     <!-- 9 宫格工具 -->
     <div class="px-6 mt-5 grid grid-cols-3 gap-x-3 gap-y-5">
-      <div class="flex flex-col items-center gap-2 cursor-pointer">
+      <div class="flex flex-col items-center gap-2 cursor-pointer" onclick="location.href='convert-single.html'">
         <div class="ib ib-48"><i class="fa-solid fa-shuffle"></i></div>
         <span class="text-[11px] font-medium t-2">格式转换</span>
       </div>
-      <div class="flex flex-col items-center gap-2 cursor-pointer">
+      <div class="flex flex-col items-center gap-2 cursor-pointer" onclick="location.href='paywall.html'">
         <div class="ib ib-48 g-batch"><i class="fa-solid fa-layer-group"></i></div>
         <span class="text-[11px] font-medium t-2 whitespace-nowrap">批量转换 <span class="pro-badge">PRO</span></span>
       </div>
-      <div class="flex flex-col items-center gap-2 cursor-pointer">
+      <div class="flex flex-col items-center gap-2 cursor-pointer" onclick="location.href='compress.html'">
         <div class="ib ib-48 g-compress"><i class="fa-solid fa-compress"></i></div>
         <span class="text-[11px] font-medium t-2">音频压缩</span>
       </div>
-      <div class="flex flex-col items-center gap-2 cursor-pointer">
+      <div class="flex flex-col items-center gap-2 cursor-pointer" onclick="location.href='merge.html'">
         <div class="ib ib-48 g-merge"><i class="fa-solid fa-link"></i></div>
         <span class="text-[11px] font-medium t-2">音频合并</span>
       </div>
-      <div class="flex flex-col items-center gap-2 cursor-pointer">
+      <div class="flex flex-col items-center gap-2 cursor-pointer" onclick="location.href='split.html'">
         <div class="ib ib-48 g-separate"><i class="fa-solid fa-scissors"></i></div>
         <span class="text-[11px] font-medium t-2">音频分割</span>
       </div>
-      <div class="flex flex-col items-center gap-2 cursor-pointer">
+      <div class="flex flex-col items-center gap-2 cursor-pointer" onclick="location.href='video-extract.html'">
         <div class="ib ib-48"><i class="fa-solid fa-film"></i></div>
         <span class="text-[11px] font-medium t-2">视频提取</span>
       </div>
-      <div class="flex flex-col items-center gap-2 cursor-pointer">
+      <div class="flex flex-col items-center gap-2 cursor-pointer" onclick="location.href='ringtone.html'">
         <div class="ib ib-48 g-ringtone"><i class="fa-solid fa-bell"></i></div>
         <span class="text-[11px] font-medium t-2">铃声制作</span>
       </div>
-      <div class="flex flex-col items-center gap-2 cursor-pointer">
+      <div class="flex flex-col items-center gap-2 cursor-pointer" onclick="location.href='paywall.html'">
         <div class="ib ib-48 g-meta"><i class="fa-solid fa-tags"></i></div>
         <span class="text-[11px] font-medium t-2 whitespace-nowrap">元数据 <span class="pro-badge">PRO</span></span>
       </div>
-      <div class="flex flex-col items-center gap-2 cursor-pointer">
+      <div class="flex flex-col items-center gap-2 cursor-pointer" onclick="location.href='file-info.html'">
         <div class="ib ib-48 g-info"><i class="fa-solid fa-circle-info"></i></div>
         <span class="text-[11px] font-medium t-2">文件信息</span>
       </div>
@@ -73,10 +73,10 @@
     <div class="px-6 mt-7">
       <div class="flex items-center justify-between mb-3">
         <span class="section-label">转换历史</span>
-        <span class="text-[12px] t-brand font-medium cursor-pointer">清空记录</span>
+        <span class="text-[12px] t-brand font-medium cursor-pointer" onclick="rwConfirm('清空转换记录','将删除全部历史记录，不影响已生成的音频文件。','清空',function(){rwToast('已清空 38 条记录')})">清空记录</span>
       </div>
       <div class="card overflow-hidden">
-        <div class="list-row">
+        <div class="list-row" onclick="location.href='batch.html'">
           <div class="ib ib-40 g-batch"><i class="fa-solid fa-layer-group"></i></div>
           <div class="flex-1 min-w-0">
             <p class="text-[13px] font-semibold truncate">播客素材包 · 批量转换</p>
@@ -88,7 +88,7 @@
           </div>
         </div>
         <div class="divider mx-4"></div>
-        <div class="list-row">
+        <div class="list-row" onclick="location.href='compress.html'">
           <div class="ib ib-40 g-compress"><i class="fa-solid fa-compress"></i></div>
           <div class="flex-1 min-w-0">
             <p class="text-[13px] font-semibold truncate">采访 0903 · 压缩</p>
@@ -100,7 +100,7 @@
           </div>
         </div>
         <div class="divider mx-4"></div>
-        <div class="list-row">
+        <div class="list-row" onclick="location.href='convert-single.html'">
           <div class="ib ib-40 g-brand"><i class="fa-solid fa-shuffle"></i></div>
           <div class="flex-1 min-w-0">
             <p class="text-[13px] font-semibold truncate">BGM 素材 → FLAC</p>
@@ -112,7 +112,7 @@
           </div>
         </div>
         <div class="divider mx-4"></div>
-        <div class="list-row">
+        <div class="list-row" onclick="location.href='ai-tools.html'">
           <div class="ib ib-40 g-separate"><i class="fa-solid fa-user-slash"></i></div>
           <div class="flex-1 min-w-0">
             <p class="text-[13px] font-semibold truncate">流行单曲 · 人声分离</p>
@@ -128,10 +128,10 @@
   </div>
 
   <div class="tab-bar">
-    <div class="tab-item"><i class="fa-solid fa-house"></i><span>首页</span></div>
-    <div class="tab-item"><i class="fa-solid fa-scissors"></i><span>编辑</span></div>
+    <div class="tab-item" onclick="location.href='home.html'"><i class="fa-solid fa-house"></i><span>首页</span></div>
+    <div class="tab-item" onclick="location.href='editor.html'"><i class="fa-solid fa-scissors"></i><span>编辑</span></div>
     <div class="tab-item active"><i class="fa-solid fa-shuffle"></i><span>转换</span></div>
-    <div class="tab-item"><i class="fa-solid fa-gear"></i><span>设置</span></div>
+    <div class="tab-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>设置</span></div>
   </div>
   <div class="home-indicator"></div>
 </div>

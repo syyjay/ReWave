@@ -24,7 +24,7 @@
   </div>
 
   <div class="nav-bar">
-    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <div class="nav-left"><span class="nav-back" onclick="location.href='converter.html'"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
     <div class="nav-title">元数据编辑 <span class="pro-badge ml-1">PRO</span></div>
     <div class="nav-right"></div>
   </div>
@@ -32,7 +32,7 @@
   <div class="scroll px-6 pb-5">
     <!-- 封面 -->
     <div class="flex items-center gap-5 mt-3">
-      <div class="img-box relative rounded-[16px]" style="width:112px;height:112px;box-shadow:var(--rw-shadow-md);">
+      <div class="img-box relative rounded-[16px] cursor-pointer" style="width:112px;height:112px;box-shadow:var(--rw-shadow-md);" onclick="rwToast('使用「更换封面」选取新图片')">
         <div class="absolute inset-0 rounded-[16px] flex items-center justify-center" style="background:var(--rw-surface-2);">
           <i class="fa-solid fa-music text-[28px]" style="color:var(--rw-text-tertiary);"></i>
         </div>
@@ -42,8 +42,8 @@
         <p class="text-[14px] font-semibold truncate">第42期播客_final.mp3</p>
         <p class="mono text-[10px] t-3 mt-1">ID3v2.4 · 38.6 MB · MP3 320kbps</p>
         <div class="flex gap-2 mt-4">
-          <button class="btn btn-ghost"><i class="fa-solid fa-camera text-[11px]"></i>更换封面</button>
-          <button class="btn btn-ghost" style="color:var(--rw-error);"><i class="fa-solid fa-trash-can text-[11px]"></i>移除</button>
+          <button class="btn btn-ghost" onclick="rwToast('从相册选择封面（原型）')"><i class="fa-solid fa-camera text-[11px]"></i>更换封面</button>
+          <button class="btn btn-ghost" style="color:var(--rw-error);" onclick="rwToast('已移除封面')"><i class="fa-solid fa-trash-can text-[11px]"></i>移除</button>
         </div>
       </div>
     </div>
@@ -91,7 +91,7 @@
   </div>
 
   <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
-    <button class="btn btn-primary w-full">
+    <button class="btn btn-primary w-full" onclick="rwRun('保存元数据','写入 ID3v2.4 标签','已保存标题 / 艺术家 / 专辑 / 封面',[['完成','',1]])">
       <i class="fa-solid fa-floppy-disk text-[14px]"></i>保存修改
     </button>
     <p class="text-center text-[10px] t-4 mt-2">修改将写入文件 ID3 标签，不影响音频数据</p>

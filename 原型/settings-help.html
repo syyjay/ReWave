@@ -105,6 +105,18 @@
   </div>
   <div class="home-indicator"></div>
 </div>
+<script>
+document.querySelectorAll('.list-row').forEach(function (r) {
+  if (r.hasAttribute('onclick')) return;
+  r.addEventListener('click', function () {
+    var t = r.textContent;
+    if (t.includes('视频')) rwToast('播放教程视频（原型）');
+    else if (t.includes('反馈')) rwToast('写信至 support@rewave.app');
+    else if (t.includes('评分')) rwToast('跳转 App Store 评分（原型）');
+    else rwToast('查看问题详情（原型）');
+  });
+});
+</script>
 <script src="assets/common.js"></script>
 </body>
 </html>

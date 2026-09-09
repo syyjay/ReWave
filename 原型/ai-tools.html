@@ -72,15 +72,15 @@
 
     <div class="flex items-center justify-between px-6 pb-3">
       <span class="text-[17px] font-bold">AI 工具 <span class="pro-badge ml-1">PRO</span></span>
-      <i class="fa-solid fa-xmark t-3 text-[16px] cursor-pointer"></i>
+      <i class="fa-solid fa-xmark t-3 text-[16px] cursor-pointer" onclick="location.href='editor.html'"></i>
     </div>
 
     <!-- 工具切换 -->
     <div class="no-shrink flex gap-2 px-6 pb-3 overflow-x-auto">
       <div class="ai-tab active"><i class="fa-solid fa-wand-magic-sparkles"></i>AI 降噪</div>
-      <div class="ai-tab"><i class="fa-solid fa-user-slash"></i>人声分离</div>
-      <div class="ai-tab"><i class="fa-solid fa-volume-xmark"></i>静音检测</div>
-      <div class="ai-tab"><i class="fa-solid fa-bolt"></i>一键增强</div>
+      <div class="ai-tab" onclick="rwPro('AI 人声分离','一键提取纯人声或伴奏，支持鼓组分离。')"><i class="fa-solid fa-user-slash"></i>人声分离</div>
+      <div class="ai-tab" onclick="rwPro('AI 静音段检测','自动定位并删除录音中的空白片段。')"><i class="fa-solid fa-volume-xmark"></i>静音检测</div>
+      <div class="ai-tab" onclick="rwPro('AI 一键增强','智能分析噪音 / 响度 / 失真并一键优化。')"><i class="fa-solid fa-bolt"></i>一键增强</div>
     </div>
 
     <div class="scroll px-6 pb-2">
@@ -125,7 +125,7 @@
             <p class="text-[13px] font-semibold">噪声学习</p>
             <p class="text-[10px] t-4 mt-0.5">选取参考片段，让 AI 学习噪声特征</p>
           </div>
-          <span class="text-[11px] t-brand font-medium">选取片段 <i class="fa-solid fa-chevron-right text-[8px]"></i></span>
+          <span class="text-[11px] t-brand font-medium cursor-pointer" onclick="rwToast('请先在波形上框选参考片段')">选取片段 <i class="fa-solid fa-chevron-right text-[8px]"></i></span>
         </div>
       </div>
 
@@ -135,7 +135,7 @@
         <div class="flex items-center gap-3">
           <span class="ab-chip active">A 原始</span>
           <span class="ab-chip">B 降噪后</span>
-          <div class="ml-auto w-9 h-9 rounded-full flex items-center justify-center cursor-pointer" style="background:var(--rw-primary-gradient);box-shadow:var(--rw-shadow-brand);">
+          <div class="ml-auto w-9 h-9 rounded-full flex items-center justify-center cursor-pointer" style="background:var(--rw-primary-gradient);box-shadow:var(--rw-shadow-brand);" onclick="var i=this.querySelector('i');var p=i.classList.toggle('fa-pause');i.classList.toggle('fa-play',!p);i.classList.toggle('ml-0.5',!p);rwToast(p?'试听中…':'已停止')">
             <i class="fa-solid fa-play text-[11px] text-white ml-0.5"></i>
           </div>
         </div>
@@ -147,7 +147,7 @@
     </div>
 
     <div class="no-shrink px-6 pt-2 pb-7">
-      <button class="btn btn-primary w-full">
+      <button class="btn btn-primary w-full" onclick="rwRun('AI 降噪','本地引擎 · 强度 65% · 预计 12 秒','降噪完成 · 今日免费额度剩余 2 次',[['A/B 对比试听',''],['完成','',1]])">
         <i class="fa-solid fa-wand-magic-sparkles text-[15px]"></i>应用降噪
       </button>
       <p class="mono text-center text-[10px] t-4 mt-2.5">预计处理 12 秒 · 00:12:47 音频 · 本地 AI 引擎</p>

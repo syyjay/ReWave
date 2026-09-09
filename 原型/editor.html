@@ -10,7 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/common.css">
 <style>
-  .track-box { position: relative; background: var(--rw-surface-1); border: 1px solid var(--rw-border-default); border-radius: 10px; overflow: hidden; }
+  .track-box { position: relative; background: var(--rw-surface-1); border: 1px solid var(--rw-border-default); border-radius: 10px; overflow: hidden; cursor: crosshair; }
+  .track-box .wave-selection, .track-box .wave-handle, .track-box .playhead { pointer-events: none; }
+  .playhead { transition: left .35s linear; }
   .ms-btn {
     width: 20px; height: 20px; border-radius: 5px;
     display: flex; align-items: center; justify-content: center;
@@ -30,8 +32,20 @@
   .tool-chip:active { transform: scale(.94); }
   .tool-chip i { font-size: 14px; }
   .tool-chip span { font-size: 9px; }
+  .fx-chip {
+    display: flex; align-items: center; gap: 8px;
+    padding: 9px 10px; border-radius: 12px; cursor: pointer;
+    background: var(--rw-surface-1); border: 1px solid var(--rw-border-default);
+    font-size: 11.5px; font-weight: 600; color: var(--rw-text-secondary);
+    position: relative;
+  }
+  .fx-chip i { font-size: 13px; color: var(--rw-primary); width: 15px; text-align: center; }
+  .fx-chip .pro-badge { position: static; margin-left: auto; }
   .pt-btn { width: 36px; height: 36px; display:flex; align-items:center; justify-content:center; border-radius:50%; color: var(--rw-text-secondary); cursor:pointer; font-size:14px; }
   .pt-btn:active { transform: scale(.9); }
+  .chip-toggle.on { background: rgba(79,107,255,.15) !important; color: var(--rw-primary) !important; border: 1px solid var(--rw-border-brand); }
+  .meter-mini { width: 4px; height: 26px; border-radius: 2px; background: rgba(255,255,255,.08); position: relative; overflow: hidden; }
+  .meter-mini b { position: absolute; bottom: 0; left: 0; right: 0; background: var(--rw-primary-300); border-radius: 2px; }
 </style>
 </head>
 <body>
@@ -50,28 +64,28 @@
   <!-- 导航栏 -->
   <div class="nav-bar">
     <div class="nav-left">
-      <i class="fa-solid fa-xmark t-2 text-[16px] cursor-pointer"></i>
+      <i class="fa-solid fa-xmark t-2 text-[16px] cursor-pointer" onclick="location.href='home.html'"></i>
     </div>
     <div class="text-center leading-tight">
       <p class="nav-title text-[15px] truncate" style="max-width:210px;">第42期播客 · 粗剪</p>
       <p class="mono text-[9px] t-4">多轨工程 · 已自动保存</p>
     </div>
     <div class="nav-right gap-2.5">
-      <i class="fa-solid fa-rotate-left t-3 text-[14px] cursor-pointer"></i>
-      <i class="fa-solid fa-rotate-right t-4 text-[14px] cursor-pointer"></i>
+      <i class="fa-solid fa-rotate-left t-3 text-[14px] cursor-pointer" id="btnUndo" onclick="undoEdit()"></i>
+      <i class="fa-solid fa-rotate-right t-4 text-[14px] cursor-pointer" onclick="rwToast('已重做')"></i>
     </div>
   </div>
 
   <!-- 工具面板切换 -->
-  <div class="no-shrink flex gap-2 px-6 pt-1 pb-2">
-    <div class="seg active flex-1">剪辑</div>
-    <div class="seg flex-1 flex items-center justify-center gap-1">AI 工具<span class="pro-badge">PRO</span></div>
-    <div class="seg flex-1">效果器</div>
-    <div class="seg flex-1">音轨</div>
+  <div class="no-shrink flex gap-2 px-6 pt-1 pb-2" id="panelTabs">
+    <div class="seg active flex-1" data-panel="clip">剪辑</div>
+    <div class="seg flex-1 flex items-center justify-center gap-1" onclick="location.href='ai-tools.html'">AI 工具<span class="pro-badge">PRO</span></div>
+    <div class="seg flex-1" data-panel="fx">效果器</div>
+    <div class="seg flex-1" data-panel="track">音轨</div>
   </div>
 
   <!-- 多轨区 -->
-  <div class="scroll px-4">
+  <div class="scroll px-4 pb-1">
     <div class="ruler mb-1">
       <b>0:00</b><b>1:00</b><b>2:00</b><b>3:00</b><b>4:00</b><b>5:00</b><b>6:00</b>
     </div>
@@ -83,41 +97,41 @@
         <span class="text-[12px] font-semibold t-2">人声 A</span>
         <span class="mono text-[9px] t-4">48kHz/24bit</span>
         <div class="ml-auto flex gap-1">
-          <div class="ms-btn on-m">M</div>
-          <div class="ms-btn">S</div>
-          <i class="fa-solid fa-sliders text-[11px] t-4 ml-1"></i>
+          <div class="ms-btn on-m" onclick="this.classList.toggle('on-m')">M</div>
+          <div class="ms-btn" onclick="this.classList.toggle('on-s')">S</div>
+          <i class="fa-solid fa-sliders text-[11px] t-4 ml-1 cursor-pointer" onclick="showPanel('track')"></i>
         </div>
       </div>
-      <div class="track-box" style="height:84px;">
+      <div class="track-box" style="height:84px;" data-seek>
         <div class="wave px-1" data-seed="42" data-bars="72" style="color:var(--rw-primary-300);"></div>
-        <div class="wave-selection" style="left:22%;width:31%;"></div>
-        <div class="wave-handle" style="left:calc(22% - 5px);"></div>
-        <div class="wave-handle" style="left:calc(53% - 5px);"></div>
-        <div class="playhead" style="left:38%;"></div>
+        <div class="wave-selection" id="selBox" style="left:22%;width:31%;"></div>
+        <div class="wave-handle" id="selL" style="left:calc(22% - 5px);"></div>
+        <div class="wave-handle" id="selR" style="left:calc(53% - 5px);"></div>
+        <div class="playhead" data-playhead style="left:38%;"></div>
       </div>
     </div>
 
     <!-- 音轨 2 · BGM -->
     <div class="flex flex-col gap-1.5 mb-2.5">
       <div class="flex items-center gap-2 px-1">
-        <div class="ib ib-28 g-merge"><i class="fa-solid fa-music"></i></div>
+        <div class="ib ib-28"><i class="fa-solid fa-music"></i></div>
         <span class="text-[12px] font-semibold t-2">BGM · Lo-fi Beat</span>
         <span class="mono text-[9px] t-4">-6.2dB</span>
         <div class="ml-auto flex gap-1">
-          <div class="ms-btn">M</div>
-          <div class="ms-btn on-s">S</div>
-          <i class="fa-solid fa-sliders text-[11px] t-4 ml-1"></i>
+          <div class="ms-btn" onclick="this.classList.toggle('on-m')">M</div>
+          <div class="ms-btn on-s" onclick="this.classList.toggle('on-s')">S</div>
+          <i class="fa-solid fa-sliders text-[11px] t-4 ml-1 cursor-pointer" onclick="showPanel('track')"></i>
         </div>
       </div>
-      <div class="track-box" style="height:60px;">
+      <div class="track-box" style="height:60px;" data-seek>
         <div class="wave px-1" data-seed="77" data-bars="72" style="color:var(--rw-primary-300);opacity:.5;"></div>
-        <div class="playhead" style="left:38%;"></div>
+        <div class="playhead" data-playhead style="left:38%;"></div>
       </div>
     </div>
 
     <!-- 添加音轨 -->
     <div class="flex items-center justify-center gap-2 rounded-[10px] cursor-pointer"
-         style="height:30px;border:1px dashed var(--rw-border-strong);">
+         style="height:30px;border:1px dashed var(--rw-border-strong);" onclick="rwToast('Free 版上限 2 轨 · Pro 解锁 4 轨混音')">
       <i class="fa-solid fa-plus text-[10px] t-4"></i>
       <span class="text-[11px] t-4">添加音轨（2/4 轨）</span>
     </div>
@@ -126,43 +140,171 @@
   <!-- 播放控制栏 -->
   <div class="no-shrink flex items-center px-5 py-2.5" style="background:var(--rw-bg-elevated);border-top:1px solid var(--rw-border-subtle);">
     <div class="mono text-[10px] leading-tight">
-      <p class="t-brand">00:04:51</p>
+      <p class="t-brand" id="tcCur">00:04:51</p>
       <p class="t-4">00:12:47</p>
     </div>
     <div class="flex-1 flex items-center justify-center gap-1">
-      <div class="pt-btn"><i class="fa-solid fa-backward-step"></i></div>
-      <div class="pt-btn"><i class="fa-solid fa-backward"></i></div>
-      <div class="pt-btn" style="width:46px;height:46px;background:var(--rw-primary-gradient);color:#fff;box-shadow:var(--rw-shadow-brand);">
+      <div class="pt-btn" onclick="seekTo(0)"><i class="fa-solid fa-backward-step"></i></div>
+      <div class="pt-btn" onclick="skip(-5)"><i class="fa-solid fa-backward"></i></div>
+      <div class="pt-btn" id="btnPlay" style="width:46px;height:46px;background:var(--rw-primary-gradient);color:#fff;box-shadow:var(--rw-shadow-brand);" onclick="togglePlay()">
         <i class="fa-solid fa-play text-[15px] ml-0.5"></i>
       </div>
-      <div class="pt-btn"><i class="fa-solid fa-forward"></i></div>
-      <div class="pt-btn"><i class="fa-solid fa-forward-step"></i></div>
+      <div class="pt-btn" onclick="skip(5)"><i class="fa-solid fa-forward"></i></div>
+      <div class="pt-btn" onclick="seekTo(DUR-0.2)"><i class="fa-solid fa-forward-step"></i></div>
     </div>
     <div class="flex flex-col gap-1.5 items-end">
-      <span class="mono text-[9px] t-3 cursor-pointer px-2 py-0.5 rounded" style="background:var(--rw-surface-2);"><i class="fa-solid fa-repeat"></i> 循环</span>
-      <span class="mono text-[9px] t-3 cursor-pointer px-2 py-0.5 rounded" style="background:var(--rw-surface-2);">1.0x</span>
+      <span class="mono text-[9px] t-3 cursor-pointer px-2 py-0.5 rounded chip-toggle" id="chipLoop" style="background:var(--rw-surface-2);" onclick="toggleLoop()"><i class="fa-solid fa-repeat"></i> 循环</span>
+      <span class="mono text-[9px] t-3 cursor-pointer px-2 py-0.5 rounded" id="chipSpeed" style="background:var(--rw-surface-2);" onclick="cycleSpeed()">1.0x</span>
     </div>
   </div>
 
-  <!-- 编辑工具栏 -->
-  <div class="no-shrink flex gap-1.5 px-4 py-2" style="background:var(--rw-bg-elevated);border-top:1px solid var(--rw-border-subtle);">
-    <div class="tool-chip"><i class="fa-solid fa-scissors"></i><span>剪切</span></div>
-    <div class="tool-chip"><i class="fa-solid fa-copy"></i><span>复制</span></div>
-    <div class="tool-chip"><i class="fa-solid fa-trash-can t-error"></i><span>删除</span></div>
-    <div class="tool-chip"><i class="fa-solid fa-arrow-trend-up"></i><span>淡入</span></div>
-    <div class="tool-chip"><i class="fa-solid fa-arrow-trend-down"></i><span>淡出</span></div>
-    <div class="tool-chip"><i class="fa-solid fa-magnifying-glass-plus"></i><span>放大</span></div>
-    <div class="tool-chip"><i class="fa-solid fa-magnifying-glass-minus"></i><span>缩小</span></div>
+  <!-- 面板区：剪辑工具 / 效果器 / 音轨混音 -->
+  <div class="no-shrink" style="background:var(--rw-bg-elevated);border-top:1px solid var(--rw-border-subtle);max-height:168px;overflow-y:auto;">
+
+    <!-- 面板 1 · 剪辑工具 -->
+    <div id="panel-clip" class="flex gap-1.5 px-4 py-2">
+      <div class="tool-chip" onclick="cutSel('剪切')"><i class="fa-solid fa-scissors"></i><span>剪切</span></div>
+      <div class="tool-chip" onclick="rwToast('已复制选区 03:12')"><i class="fa-solid fa-copy"></i><span>复制</span></div>
+      <div class="tool-chip" onclick="cutSel('删除')"><i class="fa-solid fa-trash-can t-error"></i><span>删除</span></div>
+      <div class="tool-chip" onclick="rwToast('已添加淡入 1.0s')"><i class="fa-solid fa-arrow-trend-up"></i><span>淡入</span></div>
+      <div class="tool-chip" onclick="rwToast('已添加淡出 1.5s')"><i class="fa-solid fa-arrow-trend-down"></i><span>淡出</span></div>
+      <div class="tool-chip" onclick="zoomWave(1)"><i class="fa-solid fa-magnifying-glass-plus"></i><span>放大</span></div>
+      <div class="tool-chip" onclick="zoomWave(-1)"><i class="fa-solid fa-magnifying-glass-minus"></i><span>缩小</span></div>
+    </div>
+
+    <!-- 面板 2 · 效果器 -->
+    <div id="panel-fx" class="hidden px-4 py-3 grid grid-cols-2 gap-2">
+      <div class="fx-chip" onclick="pickFx('均衡器 EQ', ['人声','流行','古典','播客','低音增强'])"><i class="fa-solid fa-sliders"></i>均衡器 EQ</div>
+      <div class="fx-chip" onclick="pickFx('压缩器', ['轻柔 2:1','标准 4:1','有力 8:1'])"><i class="fa-solid fa-gauge-high"></i>压缩器</div>
+      <div class="fx-chip" onclick="pickFx('混响', ['房间','演播室','大厅','板式'])"><i class="fa-solid fa-water"></i>混响</div>
+      <div class="fx-chip" onclick="pickFx('变速不变调', ['0.8x','1.0x','1.25x','1.5x','2.0x'])"><i class="fa-solid fa-forward-fast"></i>变速不变调</div>
+      <div class="fx-chip" onclick="pickFx('变调不变速', ['-5 半音','-2 半音','原调','+2 半音','+5 半音'])"><i class="fa-solid fa-music"></i>变调不变速</div>
+      <div class="fx-chip" onclick="pickFx('变声器', ['机器人','低沉男声','明亮女声','儿童'])"><i class="fa-solid fa-user-astronaut"></i>变声器<span class="pro-badge">PRO</span></div>
+      <div class="fx-chip" onclick="pickFx('去齿音', ['轻度','标准','强力'])"><i class="fa-solid fa-teeth"></i>去齿音<span class="pro-badge">PRO</span></div>
+      <div class="fx-chip" onclick="pickFx('限幅器', ['-0.1 dBTP','-1.0 dBTP','-3.0 dBTP'])"><i class="fa-solid fa-triangle-exclamation"></i>限幅器</div>
+      <div class="fx-chip" onclick="pickFx('响度标准化', ['播客 -16 LUFS','音乐 -14 LUFS','广播 -23 LUFS'])"><i class="fa-solid fa-scale-balanced"></i>响度标准化</div>
+      <div class="fx-chip" onclick="rwConfirm('反转 / 倒放','将对整条音轨执行音频反转，可在撤销历史中恢复。','执行',function(){rwToast('已应用反转')})"><i class="fa-solid fa-arrows-rotate"></i>反转 / 倒放</div>
+    </div>
+
+    <!-- 面板 3 · 音轨混音 -->
+    <div id="panel-track" class="hidden px-4 py-3 flex flex-col gap-3">
+      <div>
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[11px] font-semibold t-2"><i class="fa-solid fa-podcast text-[10px] t-brand mr-1"></i>人声 A</span>
+          <span class="mono text-[9px] t-3">音量 -3.2dB · 声像 C</span>
+        </div>
+        <div class="slider"><div class="fill" style="width:72%;"></div><div class="thumb" style="left:72%;"></div></div>
+      </div>
+      <div>
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[11px] font-semibold t-2"><i class="fa-solid fa-music text-[10px] t-brand mr-1"></i>BGM · Lo-fi Beat</span>
+          <span class="mono text-[9px] t-3">音量 -6.2dB · 声像 C</span>
+        </div>
+        <div class="slider"><div class="fill" style="width:58%;"></div><div class="thumb" style="left:58%;"></div></div>
+      </div>
+      <div class="flex items-center gap-3 pt-1" style="border-top:1px solid var(--rw-border-subtle);">
+        <span class="text-[11px] font-semibold t-2 flex-none">主输出</span>
+        <div class="slider flex-1"><div class="fill" style="width:80%;"></div><div class="thumb" style="left:80%;"></div></div>
+        <div class="flex gap-1 flex-none">
+          <div class="meter-mini"><b style="height:64%;"></b></div>
+          <div class="meter-mini"><b style="height:71%;"></b></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="tab-bar">
-    <div class="tab-item"><i class="fa-solid fa-house"></i><span>首页</span></div>
+    <div class="tab-item" onclick="location.href='home.html'"><i class="fa-solid fa-house"></i><span>首页</span></div>
     <div class="tab-item active"><i class="fa-solid fa-scissors"></i><span>编辑</span></div>
-    <div class="tab-item"><i class="fa-solid fa-shuffle"></i><span>转换</span></div>
-    <div class="tab-item"><i class="fa-solid fa-gear"></i><span>设置</span></div>
+    <div class="tab-item" onclick="location.href='converter.html'"><i class="fa-solid fa-shuffle"></i><span>转换</span></div>
+    <div class="tab-item" onclick="location.href='settings.html'"><i class="fa-solid fa-gear"></i><span>设置</span></div>
   </div>
   <div class="home-indicator"></div>
 </div>
+
+<script>
+/* ============ 播放引擎 ============ */
+var DUR = 767, t = 291, playing = false, speed = 1, looping = false, timer = null;
+
+function fmt(sec) {
+  sec = Math.max(0, Math.round(sec));
+  var m = Math.floor(sec / 60), s = sec % 60;
+  return '00:' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+function paint() {
+  document.getElementById('tcCur').textContent = fmt(t);
+  var pct = (t / DUR) * 100;
+  document.querySelectorAll('[data-playhead]').forEach(function (p) { p.style.left = pct + '%'; });
+}
+function togglePlay() {
+  playing = !playing;
+  document.querySelector('#btnPlay i').className = playing ? 'fa-solid fa-pause text-[15px]' : 'fa-solid fa-play text-[15px] ml-0.5';
+  clearInterval(timer);
+  if (playing) {
+    timer = setInterval(function () {
+      t += 0.4 * speed;
+      if (t >= DUR) { if (looping) { t = 0; } else { t = DUR - 0.2; togglePlay(); } }
+      paint();
+    }, 400);
+  }
+}
+function skip(d) { t = Math.min(DUR - 0.2, Math.max(0, t + d)); paint(); }
+function seekTo(v) { t = Math.min(DUR - 0.2, Math.max(0, v)); paint(); }
+function toggleLoop() {
+  looping = !looping;
+  document.getElementById('chipLoop').classList.toggle('on', looping);
+  rwToast(looping ? '循环播放：开' : '循环播放：关');
+}
+function cycleSpeed() {
+  var list = [1, 1.25, 1.5, 2, 0.5];
+  speed = list[(list.indexOf(speed) + 1) % list.length];
+  document.getElementById('chipSpeed').textContent = speed + 'x';
+}
+
+/* 波形点击定位播放指针 */
+document.querySelectorAll('[data-seek]').forEach(function (box) {
+  box.addEventListener('click', function (e) {
+    var r = box.getBoundingClientRect();
+    seekTo(((e.clientX - r.left) / r.width) * DUR);
+  });
+});
+
+/* ============ 编辑工具 ============ */
+function hideSel(hide) {
+  ['selBox', 'selL', 'selR'].forEach(function (id) {
+    document.getElementById(id).style.display = hide ? 'none' : '';
+  });
+}
+function cutSel(name) { hideSel(true); rwToast('已' + name + '选区 03:12 · 可撤销'); }
+function undoEdit() { hideSel(false); rwToast('已撤销'); }
+
+/* 缩放：增减波形柱条密度 */
+function zoomWave(dir) {
+  document.querySelectorAll('.track-box .wave').forEach(function (w) {
+    var n = Math.min(216, Math.max(36, Math.round((+w.dataset.bars || 72) + dir * 36)));
+    w.dataset.bars = n; delete w.dataset.rendered;
+  });
+  renderWaves();
+}
+
+/* ============ 面板切换 ============ */
+function showPanel(key) {
+  document.querySelectorAll('#panelTabs .seg').forEach(function (s) { s.classList.remove('active'); });
+  var target = document.querySelector('#panelTabs .seg[data-panel="' + key + '"]');
+  if (target) target.classList.add('active');
+  ['clip', 'fx', 'track'].forEach(function (k) {
+    document.getElementById('panel-' + k).classList.toggle('hidden', k !== key);
+  });
+}
+document.querySelectorAll('#panelTabs .seg[data-panel]').forEach(function (s) {
+  s.addEventListener('click', function () { showPanel(s.dataset.panel); });
+});
+
+/* ============ 效果器 ============ */
+function pickFx(name, presets) {
+  rwPick(name, presets, null, function (choice) { rwToast('已应用 ' + name + '：' + choice); });
+}
+</script>
 <script src="assets/common.js"></script>
 </body>
 </html>

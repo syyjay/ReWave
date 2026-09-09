@@ -24,9 +24,9 @@
   </div>
 
   <div class="nav-bar">
-    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <div class="nav-left"><span class="nav-back" onclick="location.href='converter.html'"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
     <span class="nav-title">铃声制作</span>
-    <div class="nav-right"><i class="fa-solid fa-circle-question t-3 text-[15px] cursor-pointer"></i></div>
+    <div class="nav-right"><i class="fa-solid fa-circle-question t-3 text-[15px] cursor-pointer" onclick="rwToast('iOS 铃声最长 40 秒 · 导出后需在系统设置中选择')"></i></div>
   </div>
 
   <div class="scroll px-6 pb-5">
@@ -105,14 +105,14 @@
           <div class="thumb" style="left:42%;"></div>
         </div>
       </div>
-      <div class="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer" style="background:var(--rw-surface-2);border:1px solid var(--rw-border-default);">
+      <div class="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer" style="background:var(--rw-surface-2);border:1px solid var(--rw-border-default);" onclick="var i=this.querySelector('i');var p=i.classList.toggle('fa-pause');i.classList.toggle('fa-play',!p);i.classList.toggle('ml-0.5',!p);">
         <i class="fa-solid fa-play text-[11px] t-2 ml-0.5"></i>
       </div>
     </div>
   </div>
 
   <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
-    <button class="btn btn-primary w-full">
+    <button class="btn btn-primary w-full" onclick="rwRun('导出铃声','30.0s 选段 · 淡入 0.5s / 淡出 1.0s · .m4r','铃声已导出，请在 系统「设置 → 声音」 中选择',[['完成','',1]])">
       <i class="fa-solid fa-bell text-[14px]"></i>导出为铃声 (.m4r)
     </button>
     <p class="text-center text-[10px] t-4 mt-2 leading-relaxed">

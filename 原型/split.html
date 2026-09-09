@@ -9,6 +9,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/common.css">
+<style>
+  .mk {
+    position: absolute; top: 0; bottom: 0;
+    width: 1.5px; background: rgba(79, 107, 255, 0.85);
+    z-index: 5; pointer-events: none;
+  }
+  .mk::after {
+    content: '';
+    position: absolute; top: -1px; left: 50%;
+    transform: translateX(-50%);
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--rw-primary);
+  }
+  #waveWrap { cursor: pointer; }
+  .chip.attention {
+    background: rgba(79, 107, 255, 0.15);
+    border: 1px solid var(--rw-border-brand);
+    color: var(--rw-primary);
+  }
+</style>
 </head>
 <body>
 <div class="phone">
@@ -24,58 +44,57 @@
   </div>
 
   <div class="nav-bar">
-    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <div class="nav-left"><span class="nav-back" onclick="location.href='converter.html'"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
     <span class="nav-title">音频分割</span>
-    <div class="nav-right"><i class="fa-solid fa-circle-question t-3 text-[15px] cursor-pointer"></i></div>
+    <div class="nav-right"><i class="fa-solid fa-circle-question t-3 text-[15px] cursor-pointer" onclick="rwToast('支持 4 种分割方式，可随时切换')"></i></div>
   </div>
 
   <div class="scroll px-6 pb-5">
     <!-- 源文件 -->
     <div class="card-elevated p-4 mt-2">
       <div class="flex items-center gap-3">
-        <div class="ib ib-44 g-separate"><i class="fa-solid fa-file-audio"></i></div>
+        <div class="ib ib-44"><i class="fa-solid fa-file-audio"></i></div>
         <div class="flex-1 min-w-0">
           <p class="text-[14px] font-semibold truncate">会议全程录音 0905.m4a</p>
           <p class="mono text-[10px] t-3 mt-0.5">96.2 MB · 00:32:15 · AAC 44.1kHz</p>
         </div>
       </div>
-      <div class="mt-3 rounded-[8px] overflow-hidden relative" style="height:36px;background:var(--rw-surface-1);">
+      <div id="waveWrap" class="mt-3 rounded-[8px] overflow-hidden relative" style="height:56px;background:var(--rw-surface-1);">
         <div class="wave px-1" data-seed="99" data-bars="80" style="color:var(--rw-primary-300);opacity:.9;"></div>
-        <span class="absolute inset-y-0 w-px" style="left:18%;background:rgba(79,107,255,.8);"></span>
-        <span class="absolute inset-y-0 w-px" style="left:47%;background:rgba(79,107,255,.8);"></span>
-        <span class="absolute inset-y-0 w-px" style="left:78%;background:rgba(79,107,255,.8);"></span>
+        <div id="marks"></div>
       </div>
+      <p class="mono text-[9px] t-4 mt-2 text-center" id="waveHint">分割点随模式自动更新 · 手动模式下点击波形添加</p>
     </div>
 
     <!-- 分割方式 -->
     <p class="section-label mt-5 mb-2">分割方式</p>
-    <div class="grid grid-cols-4 gap-2">
-      <div class="seg">按时间</div>
-      <div class="seg active">按静音段</div>
-      <div class="seg">手动</div>
-      <div class="seg">按大小</div>
+    <div class="grid grid-cols-4 gap-2" id="modeSegs">
+      <div class="seg" data-mode="time">按时间</div>
+      <div class="seg active" data-mode="silence">按静音段</div>
+      <div class="seg" data-mode="manual">手动</div>
+      <div class="seg" data-mode="size">按大小</div>
     </div>
 
-    <!-- 检测参数 -->
-    <div class="card mt-3 overflow-hidden">
-      <div class="px-4 py-3.5">
+    <!-- 参数区（随模式切换） -->
+    <div id="pm-silence" class="card mt-3 overflow-hidden">
+      <div class="px-4 py-3">
         <div class="flex justify-between items-center mb-3">
           <span class="text-[13px] font-medium t-2">静音阈值</span>
-          <span class="mono text-[12px] t-brand">-42 dB</span>
+          <span class="mono text-[12px] t-brand" id="vTh">-42 dB</span>
         </div>
-        <div class="slider">
+        <div class="slider" id="slTh">
           <div class="fill" style="width:30%;"></div>
           <div class="thumb" style="left:30%;"></div>
         </div>
         <div class="flex justify-between mono text-[9px] t-4 mt-2"><span>-60dB</span><span>0dB</span></div>
       </div>
       <div class="divider mx-4"></div>
-      <div class="px-4 py-3.5">
+      <div class="px-4 py-3">
         <div class="flex justify-between items-center mb-3">
           <span class="text-[13px] font-medium t-2">最短静音时长</span>
-          <span class="mono text-[12px] t-brand">0.8 秒</span>
+          <span class="mono text-[12px] t-brand" id="vDu">0.8 秒</span>
         </div>
-        <div class="slider">
+        <div class="slider" id="slDu">
           <div class="fill" style="width:15%;"></div>
           <div class="thumb" style="left:15%;"></div>
         </div>
@@ -83,63 +102,46 @@
       </div>
     </div>
 
-    <!-- 检测结果 -->
-    <div class="flex items-center justify-between mt-5 mb-2 px-1">
-      <span class="section-label">检测结果 · 5 段</span>
-      <span class="chip chip-info"><i class="fa-solid fa-wand-magic-sparkles"></i>重新检测</span>
-    </div>
-    <div class="card overflow-hidden">
-      <div class="list-row">
-        <span class="mono text-[11px] t-3 w-4">01</span>
-        <div class="flex-1">
-          <p class="mono text-[12px]">00:00:00 → 00:05:42 <span class="t-4">· 5:42</span></p>
-        </div>
-        <span class="chip chip-gray">保留</span>
-      </div>
-      <div class="divider mx-4"></div>
-      <div class="list-row">
-        <span class="mono text-[11px] t-3 w-4">02</span>
-        <div class="flex-1">
-          <p class="mono text-[12px]">00:05:42 → 00:06:15 <span class="t-4">· 静音 0:33</span></p>
-        </div>
-        <span class="chip chip-err"><i class="fa-solid fa-trash-can"></i>删除</span>
-      </div>
-      <div class="divider mx-4"></div>
-      <div class="list-row">
-        <span class="mono text-[11px] t-3 w-4">03</span>
-        <div class="flex-1">
-          <p class="mono text-[12px]">00:06:15 → 00:14:08 <span class="t-4">· 7:53</span></p>
-        </div>
-        <span class="chip chip-gray">保留</span>
-      </div>
-      <div class="divider mx-4"></div>
-      <div class="list-row">
-        <span class="mono text-[11px] t-3 w-4">04</span>
-        <div class="flex-1">
-          <p class="mono text-[12px]">00:14:08 → 00:24:51 <span class="t-4">· 10:43</span></p>
-        </div>
-        <span class="chip chip-gray">保留</span>
-      </div>
-      <div class="divider mx-4"></div>
-      <div class="list-row">
-        <span class="mono text-[11px] t-3 w-4">05</span>
-        <div class="flex-1">
-          <p class="mono text-[12px]">00:24:51 → 00:32:15 <span class="t-4">· 7:24</span></p>
-        </div>
-        <span class="chip chip-gray">保留</span>
+    <div id="pm-time" class="card overflow-hidden mt-3 hidden">
+      <div class="list-row" onclick="rwPick('每段时长', ['5 分钟','10 分钟','15 分钟','30 分钟'], this, onSegLen)">
+        <span class="text-[13px] font-medium t-2 flex-1">每段时长</span>
+        <span class="mono ml-auto text-[12px] t-3" id="vSegLen">5 分钟</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
       </div>
     </div>
 
+    <div id="pm-size" class="card overflow-hidden mt-3 hidden">
+      <div class="list-row" onclick="rwPick('每段大小上限', ['10 MB','25 MB','50 MB'], this, onSegSize)">
+        <span class="text-[13px] font-medium t-2 flex-1">每段大小上限</span>
+        <span class="mono ml-auto text-[12px] t-3" id="vSegSize">10 MB</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+    </div>
+
+    <div id="pm-manual" class="card p-4 mt-3 hidden" style="border-color:var(--rw-border-brand);">
+      <p class="text-[12px] t-2 leading-relaxed">
+        <i class="fa-solid fa-hand-pointer t-brand mr-1.5"></i>点击<b class="t-brand">上方波形</b>添加分割点，点击列表中的
+        <i class="fa-solid fa-trash-can t-error text-[10px]"></i> 移除。分割点越多，输出文件越多。
+      </p>
+    </div>
+
+    <!-- 结果区 -->
+    <div class="flex items-center justify-between mt-5 mb-2 px-1">
+      <span class="section-label" id="resultTitle">检测结果 · 5 段</span>
+      <span class="chip chip-info cursor-pointer" id="redetect" onclick="redetect()">重新检测</span>
+    </div>
+    <div class="card overflow-hidden" id="resultBox"></div>
+
     <!-- 输出设置 -->
     <div class="card overflow-hidden mt-4">
-      <div class="list-row">
-        <span class="text-[13px] font-medium t-2">输出格式</span>
+      <div class="list-row" onclick="rwPick('输出格式', ['M4A · 128kbps','MP3 · 128kbps','WAV 无损'], this)">
+        <span class="text-[13px] font-medium t-2 flex-1">输出格式</span>
         <span class="mono ml-auto text-[12px] t-3">M4A · 128kbps</span>
         <i class="fa-solid fa-chevron-right chev"></i>
       </div>
       <div class="divider mx-4"></div>
-      <div class="list-row">
-        <span class="text-[13px] font-medium t-2">命名规则</span>
+      <div class="list-row" onclick="rwPick('命名规则', ['会议录音_00x','分段_part','音轨_track'], this)">
+        <span class="text-[13px] font-medium t-2 flex-1">命名规则</span>
         <span class="mono ml-auto text-[12px] t-3">会议录音_00x</span>
         <i class="fa-solid fa-chevron-right chev"></i>
       </div>
@@ -147,12 +149,178 @@
   </div>
 
   <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
-    <button class="btn btn-primary w-full">
-      <i class="fa-solid fa-scissors text-[14px]"></i>分割为 4 个文件
+    <button class="btn btn-primary w-full" onclick="splitNow()">
+      <i class="fa-solid fa-scissors text-[14px]"></i><span id="ctaTxt">分割为 4 个文件</span>
     </button>
   </div>
   <div class="home-indicator"></div>
 </div>
+
+<script>
+/* ===== 数据 ===== */
+var DUR = 1935; /* 32:15 */
+var SEG = [
+  { from: '00:00:00', to: '00:05:42', note: '5:42', silent: false, keep: true },
+  { from: '00:05:42', to: '00:06:15', note: '静音 0:33', silent: true, keep: false },
+  { from: '00:06:15', to: '00:14:08', note: '7:53', silent: false, keep: true },
+  { from: '00:14:08', to: '00:24:51', note: '10:43', silent: false, keep: true },
+  { from: '00:24:51', to: '00:32:15', note: '7:24', silent: false, keep: true }
+];
+var BOUND = ['00:05:42', '00:06:15', '00:14:08', '00:24:51'];
+var MARKS = [];            /* 手动分割点（秒） */
+var mode = 'silence';
+var segLen = 5, segSize = 10;
+
+function t2s(st) { var p = st.split(':').map(Number); return p[0] * 3600 + p[1] * 60 + p[2]; }
+function s2t(s) {
+  s = Math.round(s);
+  var m = Math.floor(s / 60), ss = s % 60;
+  return String(m).padStart(2, '0') + ':' + String(ss).padStart(2, '0');
+}
+
+/* ===== 波形标记 ===== */
+function paintMarks(list) {
+  var box = document.getElementById('marks');
+  box.innerHTML = '';
+  list.forEach(function (sec) {
+    var d = document.createElement('span');
+    d.className = 'mk';
+    d.style.left = (sec / DUR * 100) + '%';
+    box.appendChild(d);
+  });
+}
+
+/* ===== 模式切换 ===== */
+document.querySelectorAll('#modeSegs .seg').forEach(function (s) {
+  s.addEventListener('click', function () { setMode(s.dataset.mode); });
+});
+function setMode(m) {
+  mode = m;
+  ['silence', 'time', 'size', 'manual'].forEach(function (k) {
+    document.getElementById('pm-' + k).classList.toggle('hidden', k !== m);
+  });
+  document.getElementById('redetect').style.display = (m === 'silence') ? '' : 'none';
+  document.getElementById('waveHint').textContent =
+    m === 'manual' ? '点击波形添加分割点（已加 ' + MARKS.length + ' 个）'
+                   : '分割点随模式自动更新 · 手动模式下点击波形添加';
+  render();
+}
+
+/* ===== 结果渲染 ===== */
+function render() {
+  var box = document.getElementById('resultBox');
+  var title = document.getElementById('resultTitle');
+  var html = '';
+
+  if (mode === 'silence') {
+    title.textContent = '检测结果 · 5 段';
+    paintMarks(BOUND.map(t2s));
+    SEG.forEach(function (g, i) {
+      html += segRow(i, String(i + 1).padStart(2, '0'), g.from + ' → ' + g.to, g.note, g.keep, g.silent);
+    });
+  } else if (mode === 'time') {
+    var n = Math.ceil(DUR / (segLen * 60));
+    var last = DUR - (n - 1) * segLen * 60;
+    title.textContent = '均分预览 · ' + n + ' 段';
+    paintMarks(range(n - 1).map(function (i) { return (i + 1) * segLen * 60; }));
+    html = summaryRow('段数', n + ' 段') + summaryRow('每段时长', segLen + ' 分钟') +
+           summaryRow('末段时长', s2t(last)) +
+           summaryRow('输出命名', '会议录音_001 ~ ' + String(n).padStart(3, '0'));
+  } else if (mode === 'size') {
+    var n2 = Math.ceil(96.2 / segSize);
+    title.textContent = '按大小预览 · ' + n2 + ' 段';
+    paintMarks(range(n2 - 1).map(function (i) { return Math.round((i + 1) * (DUR / n2)); }));
+    html = summaryRow('段数', n2 + ' 段') + summaryRow('每段大小', '≤ ' + segSize + ' MB') +
+           summaryRow('平均时长', s2t(DUR / n2));
+  } else {
+    title.textContent = '手动分割点 · ' + MARKS.length + ' 个';
+    paintMarks(MARKS.slice().sort(function (a, b) { return a - b; }));
+    if (!MARKS.length) {
+      html = '<div class="px-4 py-6 text-center"><i class="fa-solid fa-hand-pointer t-4 text-[18px]"></i>' +
+             '<p class="text-[12px] t-4 mt-2">点击上方波形添加第一个分割点</p></div>';
+    } else {
+      MARKS.slice().sort(function (a, b) { return a - b; }).forEach(function (sec) {
+        html += '<div class="list-row" style="padding:10px 16px;">' +
+          '<span class="mono w-4"><i class="fa-solid fa-scissors text-[10px] t-brand"></i></span>' +
+          '<p class="mono text-[12px] flex-1">分割点 @ ' + s2t(sec) + '</p>' +
+          '<i class="fa-solid fa-trash-can t-error text-[12px] cursor-pointer" onclick="rmMark(' + sec + ')"></i></div>';
+        if (sec !== MARKS.slice().sort(function (a, b) { return a - b; })[MARKS.length - 1]) html += '<div class="divider mx-4"></div>';
+      });
+    }
+  }
+  box.innerHTML = html;
+  updateCta();
+}
+function range(n) { return Array.from({ length: n }, function (_, i) { return i; }); }
+
+function segRow(i, no, rangeTxt, note, keep, silent) {
+  var chip = keep
+    ? '<span class="chip chip-gray cursor-pointer" onclick="flipSeg(' + i + ')">保留</span>'
+    : '<span class="chip chip-err cursor-pointer" onclick="flipSeg(' + i + ')"><i class="fa-solid fa-trash-can"></i>删除</span>';
+  return '<div class="list-row" style="padding:10px 16px;' + (silent ? 'opacity:.75;' : '') + '">' +
+    '<span class="mono text-[11px] t-3 w-4">' + no + '</span>' +
+    '<div class="flex-1"><p class="mono text-[11px]">' + rangeTxt + ' <span class="t-4">· ' + note + '</span></p></div>' +
+    chip + '</div>' +
+    (i < SEG.length - 1 ? '<div class="divider mx-4"></div>' : '');
+}
+function summaryRow(k, v) {
+  return '<div class="list-row" style="padding:10px 16px;">' +
+    '<span class="text-[12.5px] t-2 flex-1">' + k + '</span>' +
+    '<span class="mono text-[12px]">' + v + '</span></div>';
+}
+
+function flipSeg(i) { SEG[i].keep = !SEG[i].keep; render(); }
+function rmMark(sec) { MARKS = MARKS.filter(function (s) { return s !== sec; }); setMode('manual'); }
+
+/* ===== 波形点击（手动模式加分割点） ===== */
+document.getElementById('waveWrap').addEventListener('click', function (e) {
+  if (mode !== 'manual') { rwToast('切到「手动」模式后点击波形添加分割点'); return; }
+  var r = this.getBoundingClientRect();
+  var sec = Math.round(((e.clientX - r.left) / r.width) * DUR);
+  MARKS.push(sec);
+  setMode('manual');
+  rwToast('已添加分割点 ' + s2t(sec));
+});
+
+/* ===== 参数联动 ===== */
+function onSegLen(v) { segLen = parseInt(v, 10); document.getElementById('vSegLen').textContent = v; render(); }
+function onSegSize(v) { segSize = parseInt(v, 10); document.getElementById('vSegSize').textContent = v; render(); }
+document.addEventListener('rwslide', function (e) {
+  if (mode !== 'silence') return;
+  var sl = e.target;
+  var val = sl.id === 'slTh'
+    ? '-' + Math.round(60 - e.detail.value * 60) + ' dB'
+    : (0.1 + e.detail.value * 4.9).toFixed(1) + ' 秒';
+  document.getElementById(sl.id === 'slTh' ? 'vTh' : 'vDu').textContent = val;
+  document.getElementById('redetect').classList.add('attention');
+});
+function redetect() {
+  document.getElementById('redetect').classList.remove('attention');
+  rwToast('已重新检测：5 段 · 保留 4 段 · 静音 1 段');
+}
+
+/* ===== CTA ===== */
+function segCount() {
+  if (mode === 'silence') return SEG.filter(function (g) { return g.keep; }).length;
+  if (mode === 'time') return Math.ceil(DUR / (segLen * 60));
+  if (mode === 'size') return Math.ceil(96.2 / segSize);
+  return MARKS.length + 1;
+}
+function updateCta() {
+  document.getElementById('ctaTxt').textContent = '分割为 ' + segCount() + ' 个文件';
+}
+function splitNow() {
+  var label = {
+    silence: '按静音段检测 · 输出 M4A',
+    time: '按时长均分 · 每段 ' + segLen + ' 分钟',
+    size: '按大小分割 · 每段 ≤' + segSize + 'MB',
+    manual: '手动标记 ' + MARKS.length + ' 点'
+  }[mode];
+  rwRun('音频分割', label, '已分割为 ' + segCount() + ' 个文件 · 已存入「文件」App', [['返回转换中心', 'converter.html', 1]]);
+}
+
+render();
+</script>
 <script src="assets/common.js"></script>
 </body>
 </html>

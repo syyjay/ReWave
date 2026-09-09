@@ -24,9 +24,9 @@
   </div>
 
   <div class="nav-bar">
-    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <div class="nav-left"><span class="nav-back" onclick="location.href='converter.html'"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
     <span class="nav-title">音频压缩</span>
-    <div class="nav-right"><i class="fa-solid fa-circle-question t-3 text-[15px] cursor-pointer"></i></div>
+    <div class="nav-right"><i class="fa-solid fa-circle-question t-3 text-[15px] cursor-pointer" onclick="rwToast('标准方案适合语音；音乐内容建议轻度')"></i></div>
   </div>
 
   <div class="scroll px-6 pb-5">
@@ -38,7 +38,7 @@
           <p class="text-[14px] font-semibold truncate">采访 0903 · 完整版.wav</p>
           <p class="mono text-[10px] t-3 mt-0.5">342.8 MB · 00:12:47 · WAV 48kHz/24bit</p>
         </div>
-        <div class="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer" style="background:var(--rw-surface-2);border:1px solid var(--rw-border-default);">
+        <div class="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer" style="background:var(--rw-surface-2);border:1px solid var(--rw-border-default);" onclick="rwToast('试听原始音质（原型）')">
           <i class="fa-solid fa-play text-[11px] t-2 ml-0.5"></i>
         </div>
       </div>
@@ -47,10 +47,10 @@
     <!-- 压缩方案 -->
     <p class="section-label mt-5 mb-2">压缩方案</p>
     <div class="grid grid-cols-4 gap-2">
-      <div class="seg">轻度</div>
+      <div class="seg" onclick="rwPro('轻度压缩','Pro 解锁全部 4 种压缩方案与试听。')">轻度</div>
       <div class="seg active">标准</div>
-      <div class="seg">极限</div>
-      <div class="seg">自定义</div>
+      <div class="seg" onclick="rwPro('极限压缩','Pro 解锁全部 4 种压缩方案与试听。')">极限</div>
+      <div class="seg" onclick="rwPro('自定义压缩','Pro 解锁自定义比特率与质量参数。')">自定义</div>
     </div>
     <p class="text-[10px] t-4 mt-2 px-1">标准方案 · AAC 128kbps · 语音内容推荐，人声清晰自然</p>
 
@@ -81,19 +81,19 @@
     <!-- 压缩统计 -->
     <p class="section-label mt-5 mb-2">输出参数</p>
     <div class="card overflow-hidden">
-      <div class="list-row">
+      <div class="list-row" onclick="rwPick('输出格式', ['AAC','MP3','OGG'], this)">
         <span class="text-[13px] font-medium t-2">输出格式</span>
         <span class="mono ml-auto text-[12px] t-3">AAC</span>
         <i class="fa-solid fa-chevron-right chev"></i>
       </div>
       <div class="divider mx-4"></div>
-      <div class="list-row">
+      <div class="list-row" onclick="rwPick('目标比特率', ['96 kbps','128 kbps','192 kbps','256 kbps'], this)">
         <span class="text-[13px] font-medium t-2">目标比特率</span>
         <span class="mono ml-auto text-[12px] t-3">128 kbps</span>
         <i class="fa-solid fa-chevron-right chev"></i>
       </div>
       <div class="divider mx-4"></div>
-      <div class="list-row">
+      <div class="list-row" onclick="rwPick('采样率', ['44.1 kHz','48 kHz'], this)">
         <span class="text-[13px] font-medium t-2">采样率</span>
         <span class="mono ml-auto text-[12px] t-3">44.1 kHz</span>
         <i class="fa-solid fa-chevron-right chev"></i>
@@ -101,7 +101,7 @@
     </div>
 
     <!-- 试听 -->
-    <div class="card flex items-center gap-3 p-4 mt-4 cursor-pointer">
+    <div class="card flex items-center gap-3 p-4 mt-4 cursor-pointer" onclick="rwToast('进入对比试听（原型）')">
       <div class="ib ib-40 g-compress"><i class="fa-solid fa-headphones"></i></div>
       <div class="flex-1">
         <p class="text-[13px] font-semibold">试听压缩效果</p>
@@ -112,7 +112,7 @@
   </div>
 
   <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
-    <button class="btn btn-primary w-full">
+    <button class="btn btn-primary w-full" onclick="rwRun('音频压缩','WAV → AAC · 128kbps · 预计 4 秒','已压缩至 12.1 MB · 缩减 96.5%',[['试听效果',''],['返回转换中心','converter.html',1]])">
       <i class="fa-solid fa-compress text-[15px]"></i>开始压缩
     </button>
   </div>

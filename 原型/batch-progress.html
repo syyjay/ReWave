@@ -41,9 +41,9 @@
   </div>
 
   <div class="nav-bar">
-    <div class="nav-left"><i class="fa-solid fa-chevron-down t-2 text-[15px] cursor-pointer"></i></div>
+    <div class="nav-left"><i class="fa-solid fa-chevron-down t-2 text-[15px] cursor-pointer" onclick="location.href='batch.html'"></i></div>
     <div class="nav-title">批量转换中</div>
-    <div class="nav-right"><span class="text-[13px] t-3">最小化</span></div>
+    <div class="nav-right"><span class="text-[13px] t-3 cursor-pointer" onclick="location.href='converter.html'">最小化</span></div>
   </div>
 
   <!-- 总进度 -->
@@ -114,8 +114,8 @@
   </div>
 
   <div class="no-shrink flex gap-3 px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
-    <button class="btn btn-secondary flex-1"><i class="fa-solid fa-house text-[13px]"></i>后台运行</button>
-    <button class="btn btn-secondary flex-1" style="color:var(--rw-error);"><i class="fa-solid fa-xmark text-[13px]"></i>取消</button>
+    <button class="btn btn-secondary flex-1" onclick="location.href='home.html'"><i class="fa-solid fa-house text-[13px]"></i>后台运行</button>
+    <button class="btn btn-secondary flex-1" style="color:var(--rw-error);" onclick="location.href='batch.html'"><i class="fa-solid fa-xmark text-[13px]"></i>取消</button>
   </div>
   <div class="home-indicator"></div>
 </div>

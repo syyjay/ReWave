@@ -34,9 +34,9 @@
   </div>
 
   <div class="nav-bar">
-    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <div class="nav-left"><span class="nav-back" onclick="location.href='converter.html'"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
     <div class="nav-title">批量处理 <span class="pro-badge ml-1">PRO</span></div>
-    <div class="nav-right"><span class="text-[13px] t-brand font-medium">全选</span></div>
+    <div class="nav-right"><span class="text-[13px] t-brand font-medium cursor-pointer" onclick="selAll(this)">全选</span></div>
   </div>
 
   <!-- 操作类型 -->
@@ -107,13 +107,13 @@
     <!-- 操作参数 -->
     <p class="section-label mt-4 mb-2">操作参数 · 批量转换</p>
     <div class="card overflow-hidden">
-      <div class="list-row">
+      <div class="list-row" onclick="rwPick('目标格式', ['MP3','WAV','AAC','M4A','FLAC'], this)">
         <span class="text-[13px] font-medium t-2">目标格式</span>
         <span class="mono ml-auto text-[12px] t-3">MP3</span>
         <i class="fa-solid fa-chevron-right chev"></i>
       </div>
       <div class="divider mx-4"></div>
-      <div class="list-row">
+      <div class="list-row" onclick="rwPick('比特率', ['128 kbps','192 kbps','256 kbps','320 kbps'], this)">
         <span class="text-[13px] font-medium t-2">比特率</span>
         <span class="mono ml-auto text-[12px] t-3">320 kbps</span>
         <i class="fa-solid fa-chevron-right chev"></i>
@@ -138,13 +138,54 @@
   </div>
 
   <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
-    <button class="btn btn-primary w-full">
+    <button class="btn btn-primary w-full" onclick="location.href='batch-progress.html'">
       <i class="fa-solid fa-layer-group text-[15px]"></i>开始批量处理
     </button>
     <p class="mono text-center text-[10px] t-4 mt-2">3 个文件 · 预计 15 秒 · 支持后台运行</p>
   </div>
   <div class="home-indicator"></div>
 </div>
+<script>
+/* 文件勾选 / 全选（setCheck 显式设定，避免翻转歧义） */
+function setCheck(c, on) {
+  c.classList.toggle('on', on);
+  var i = c.querySelector('i');
+  if (on && !i) {
+    var n = document.createElement('i');
+    n.className = 'fa-solid fa-check';
+    c.appendChild(n);
+  } else if (!on && i) {
+    c.removeChild(i);
+  }
+}
+function paintCount() {
+  var n = document.querySelectorAll('.check.on').length;
+  var chip = [...document.querySelectorAll('span')].find(function (s) { return s.textContent.indexOf('已选') === 0; });
+  if (chip) chip.innerHTML = '<b class="t-brand">已选 ' + n + ' / 12</b> 个文件';
+}
+document.querySelectorAll('.check').forEach(function (c) {
+  c.addEventListener('click', function (ev) {
+    ev.stopPropagation();
+    setCheck(c, !c.classList.contains('on'));
+    paintCount();
+  });
+});
+document.querySelectorAll('.list-row').forEach(function (r) {
+  if (!r.querySelector('.check') || r.hasAttribute('onclick')) return;
+  r.addEventListener('click', function () {
+    var c = r.querySelector('.check');
+    setCheck(c, !c.classList.contains('on'));
+    paintCount();
+  });
+});
+function selAll(el) {
+  var boxes = [...document.querySelectorAll('.check')];
+  var allOn = boxes.every(function (c) { return c.classList.contains('on'); });
+  boxes.forEach(function (c) { setCheck(c, !allOn); });
+  el.textContent = allOn ? '全选' : '取消';
+  paintCount();
+}
+</script>
 <script src="assets/common.js"></script>
 </body>
 </html>

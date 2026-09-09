@@ -34,7 +34,7 @@
 
     <!-- 账号与订阅 -->
     <div class="px-6 grp" style="margin-top:10px;">
-      <div class="card-elevated flex items-center gap-3 p-3.5 cursor-pointer">
+      <div class="card-elevated flex items-center gap-3 p-3.5 cursor-pointer" onclick="location.href='paywall.html'">
         <div class="ib ib-44"><i class="fa-solid fa-user"></i></div>
         <div class="flex-1">
           <p class="text-[15px] font-bold">syy</p>
@@ -68,14 +68,14 @@
     <div class="px-6 grp">
       <p class="section-label mb-2 px-1">外观</p>
       <div class="card overflow-hidden">
-        <div class="list-row">
+        <div class="list-row" onclick="rwPick('主题', ['浅色','深色','跟随系统'], this)">
           <div class="ib ib-28"><i class="fa-solid fa-palette"></i></div>
           <span class="text-[13px] font-medium t-2 flex-1">主题</span>
           <span class="text-[12px] t-3">深色</span>
           <i class="fa-solid fa-chevron-right chev"></i>
         </div>
         <div class="divider mx-4"></div>
-        <div class="list-row">
+        <div class="list-row" onclick="rwPick('波形配色', ['品牌蓝','鲜紫','冰蓝','雾白'], this)">
           <div class="ib ib-28"><i class="fa-solid fa-wave-square"></i></div>
           <span class="text-[13px] font-medium t-2 flex-1">波形配色</span>
           <span class="text-[12px] t-3">品牌蓝</span>
@@ -94,14 +94,14 @@
           <div class="toggle"></div>
         </div>
         <div class="divider mx-4"></div>
-        <div class="list-row">
+        <div class="list-row" onclick="clearCache(this)">
           <div class="ib ib-28"><i class="fa-solid fa-database"></i></div>
           <span class="text-[13px] font-medium t-2 flex-1">清除缓存</span>
           <span class="mono text-[12px] t-3">1.2 GB</span>
           <i class="fa-solid fa-chevron-right chev"></i>
         </div>
         <div class="divider mx-4"></div>
-        <div class="list-row">
+        <div class="list-row" onclick="rwPick('语言', ['跟随系统','简体中文','English','日本語'], this)">
           <div class="ib ib-28"><i class="fa-solid fa-globe"></i></div>
           <span class="text-[13px] font-medium t-2 flex-1">语言</span>
           <span class="text-[12px] t-3">跟随系统</span>
@@ -135,13 +135,21 @@
   </div>
 
   <div class="tab-bar">
-    <div class="tab-item"><i class="fa-solid fa-house"></i><span>首页</span></div>
-    <div class="tab-item"><i class="fa-solid fa-scissors"></i><span>编辑</span></div>
-    <div class="tab-item"><i class="fa-solid fa-shuffle"></i><span>转换</span></div>
+    <div class="tab-item" onclick="location.href='home.html'"><i class="fa-solid fa-house"></i><span>首页</span></div>
+    <div class="tab-item" onclick="location.href='editor.html'"><i class="fa-solid fa-scissors"></i><span>编辑</span></div>
+    <div class="tab-item" onclick="location.href='converter.html'"><i class="fa-solid fa-shuffle"></i><span>转换</span></div>
     <div class="tab-item active"><i class="fa-solid fa-gear"></i><span>设置</span></div>
   </div>
   <div class="home-indicator"></div>
 </div>
+<script>
+  function clearCache(row) {
+    rwConfirm('清除缓存', '将删除 1.2 GB 临时文件，不会影响项目与录音。', '清除缓存', function () {
+      row.querySelector('.mono').textContent = '0 MB';
+      rwToast('已释放 1.2 GB 空间');
+    });
+  }
+</script>
 <script src="assets/common.js"></script>
 </body>
 </html>

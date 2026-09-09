@@ -24,17 +24,17 @@
   </div>
 
   <div class="nav-bar">
-    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>首页</span></div>
+    <div class="nav-left"><span class="nav-back" onclick="location.href='home.html'"><i class="fa-solid fa-chevron-left"></i>首页</span></div>
     <span class="nav-title">项目库</span>
     <div class="nav-right">
-      <i class="fa-solid fa-arrow-down-a-z t-3 text-[14px] cursor-pointer mr-2.5"></i>
-      <i class="fa-solid fa-plus t-2 text-[15px] cursor-pointer"></i>
+      <i class="fa-solid fa-arrow-down-a-z t-3 text-[14px] cursor-pointer mr-2.5" onclick="rwPick('排序方式',['最近编辑','名称','大小','时长'],null,function(v){rwToast('已按'+v+'排序')})"></i>
+      <i class="fa-solid fa-plus t-2 text-[15px] cursor-pointer" onclick="location.href='recorder.html'"></i>
     </div>
   </div>
 
   <!-- 搜索 + 筛选 -->
   <div class="no-shrink px-6 pb-3">
-    <div class="input flex items-center gap-2.5" style="padding:11px 14px;">
+    <div class="input flex items-center gap-2.5 cursor-pointer" style="padding:11px 14px;" onclick="rwToast('搜索项目、文件或格式（原型）')">
       <i class="fa-solid fa-magnifying-glass text-[13px] t-4"></i>
       <span class="text-[14px] t-4">搜索项目、文件或格式</span>
     </div>
@@ -49,7 +49,7 @@
   <div class="scroll px-6 pb-4">
     <div class="flex flex-col gap-2.5">
       <!-- 项目 1 -->
-      <div class="card flex items-center gap-3 p-3.5">
+      <div class="card flex items-center gap-3 p-3.5 cursor-pointer" onclick="location.href='editor.html'">
         <div class="ib ib-40 g-brand"><i class="fa-solid fa-podcast"></i></div>
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2">
@@ -59,10 +59,10 @@
           <div class="wave mt-1.5" data-seed="42" data-bars="48" style="height:18px;color:var(--rw-primary-300);"></div>
           <p class="mono text-[9px] t-4 mt-1.5">多轨 2/4 · 00:12:47 · 昨天 21:04</p>
         </div>
-        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer"></i>
+        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer" onclick="projMenu(this)"></i>
       </div>
       <!-- 项目 2 -->
-      <div class="card flex items-center gap-3 p-3.5">
+      <div class="card flex items-center gap-3 p-3.5 cursor-pointer" onclick="location.href='editor.html'">
         <div class="ib ib-40 g-merge"><i class="fa-solid fa-headphones"></i></div>
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2">
@@ -72,10 +72,10 @@
           <div class="wave mt-1.5" data-seed="9" data-bars="48" style="height:18px;color:var(--rw-primary-300);"></div>
           <p class="mono text-[9px] t-4 mt-1.5">M4A · 00:32:15 · 3 天前</p>
         </div>
-        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer"></i>
+        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer" onclick="projMenu(this)"></i>
       </div>
       <!-- 项目 3 -->
-      <div class="card flex items-center gap-3 p-3.5">
+      <div class="card flex items-center gap-3 p-3.5 cursor-pointer" onclick="location.href='editor.html'">
         <div class="ib ib-40 g-separate"><i class="fa-solid fa-user-slash"></i></div>
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2">
@@ -85,20 +85,19 @@
           <div class="wave mt-1.5" data-seed="55" data-bars="48" style="height:18px;color:var(--rw-primary-300);"></div>
           <p class="mono text-[9px] t-4 mt-1.5">人声.wav + 伴奏.wav · 9月7日</p>
         </div>
-        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer"></i>
+        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer" onclick="projMenu(this)"></i>
       </div>
       <!-- 项目 4 -->
-      <div class="card flex items-center gap-3 p-3.5">
+      <div class="card flex items-center gap-3 p-3.5 cursor-pointer" onclick="location.href='editor.html'">
         <div class="ib ib-40 g-ringtone"><i class="fa-solid fa-bell"></i></div>
         <div class="flex-1 min-w-0">
           <div class="flex items-center gap-2">
             <p class="text-[13.5px] font-semibold truncate">新铃声 · 副歌 30s</p>
             <span class="chip chip-gray" style="font-size:8px;">铃声</span>
           </div>
-          <div class="wave mt-1.5" data-seed="66" data-bars="48" style="height:18px;color:var(--rw-primary-300);"></div>
-          <p class="mono text-[9px] t-4 mt-1.5">m4r · 00:00:30 · 9月6日</p>
+          <div class="wave mt-1.5" data-seed="66" data-bars="48" style="height:18px;color:var(--rw-primary-300);"<div class="card flex items-center gap-3 p-3.5 cursor-pointer" onclick="location.href='batch-progress.html'">mt-1.5">m4r · 00:00:30 · 9月6日</p>
         </div>
-        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer"></i>
+        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer" onclick="projMenu(this)"></i>
       </div>
       <!-- 项目 5 -->
       <div class="card flex items-center gap-3 p-3.5">
@@ -110,7 +109,7 @@
           </div>
           <p class="mono text-[9px] t-4 mt-2">WAV → MP3 · 647.6 MB → 72.9 MB · 今天 09:12</p>
         </div>
-        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer"></i>
+        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer" onclick="projMenu(this)"></i>
       </div>
     </div>
 
@@ -128,6 +127,14 @@
   </div>
   <div class="home-indicator"></div>
 </div>
+<script>
+function projMenu(el) {
+  var name = el.closest('.card').querySelector('p').textContent.trim();
+  rwPick('项目操作 · ' + name.slice(0, 10), ['重命名', '复制', '移动', '分享', '删除'], null, function (v) {
+    rwToast(v + '「' + name.slice(0, 12) + '」（原型）');
+  });
+}
+</script>
 <script src="assets/common.js"></script>
 </body>
 </html>

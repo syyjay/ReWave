@@ -48,7 +48,7 @@
   <!-- 导航 -->
   <div class="nav-bar">
     <div class="nav-left">
-      <i class="fa-solid fa-chevron-left t-2 text-[16px] cursor-pointer"></i>
+      <i class="fa-solid fa-chevron-left t-2 text-[16px] cursor-pointer" onclick="location.href='home.html'"></i>
     </div>
     <div class="text-center leading-tight">
       <p class="nav-title text-[15px]">新录音</p>
@@ -57,7 +57,7 @@
       </p>
     </div>
     <div class="nav-right">
-      <div class="btn-icon"><i class="fa-solid fa-gear text-[13px]"></i></div>
+      <div class="btn-icon" onclick="location.href='settings.html'"><i class="fa-solid fa-gear text-[13px]"></i></div>
     </div>
   </div>
 
@@ -118,24 +118,69 @@
 
     <!-- 控制按钮 -->
     <div class="flex items-center justify-around mt-8 pb-8">
-      <div class="btn-icon lg cursor-pointer" style="width:56px;height:56px;border-radius:16px;">
+      <div class="btn-icon lg cursor-pointer" style="width:56px;height:56px;border-radius:16px;" onclick="addMark()">
         <i class="fa-solid fa-bookmark text-[18px]" style="color:var(--rw-primary);"></i>
       </div>
       <div class="relative flex items-center justify-center cursor-pointer" style="width:88px;height:88px;">
         <span class="pulse-ring"></span><span class="pulse-ring"></span>
-        <div class="flex items-center justify-center rounded-full" style="width:76px;height:76px;background:var(--rw-gradient-record);box-shadow:0 8px 32px rgba(239,68,68,0.35);">
+        <div class="flex items-center justify-center rounded-full cursor-pointer" onclick="togglePause(this)" style="width:76px;height:76px;background:var(--rw-gradient-record);box-shadow:0 8px 32px rgba(239,68,68,0.35);">
           <i class="fa-solid fa-pause text-[26px] text-white"></i>
         </div>
       </div>
-      <div class="btn-icon lg cursor-pointer" style="width:56px;height:56px;border-radius:16px;">
+      <div class="btn-icon lg cursor-pointer" style="width:56px;height:56px;border-radius:16px;" onclick="document.getElementById('stopSheet').classList.add('show')">
         <i class="fa-solid fa-stop text-[16px]" style="color:var(--rw-text-secondary);"></i>
       </div>
     </div>
     <p class="text-center text-[10px] t-4 mb-4">左：添加标记 · 中：暂停 / 继续 · 右：停止并保存</p>
   </div>
 
+  <!-- 停止后弹窗：编辑 / 保存 / 重录 -->
+  <div id="stopSheet" class="absolute inset-0 z-[95]">
+    <div class="absolute inset-0" style="background:rgba(6,6,9,0.6);backdrop-filter:blur(4px);opacity:0;transition:opacity .25s;" onclick="document.getElementById('stopSheet').classList.remove('show')"></div>
+    <div class="absolute left-0 right-0 bottom-0" style="background:var(--rw-bg-elevated-2);border-radius:24px 24px 0 0;border-top:1px solid var(--rw-border-default);padding:20px 24px 36px;transform:translateY(100%);transition:transform .3s cubic-bezier(.32,.72,.35,1);">
+      <div class="flex justify-center mb-4"><span style="width:36px;height:4px;border-radius:2px;background:var(--rw-surface-4);"></span></div>
+      <p class="text-center text-[16px] font-bold">录音已停止</p>
+      <p class="mono text-center text-[11px] t-3 mt-1.5">时长 00:12:47 · 预计 138.2 MB · 48kHz/24bit</p>
+      <div class="flex flex-col gap-2.5 mt-5">
+        <button class="btn btn-primary w-full" onclick="location.href='editor.html'">
+          <i class="fa-solid fa-scissors text-[14px]"></i>去编辑
+        </button>
+        <button class="btn btn-secondary w-full" onclick="document.getElementById('stopSheet').classList.remove('show')">
+          <i class="fa-solid fa-floppy-disk text-[13px]"></i>保存录音
+        </button>
+        <button class="btn btn-secondary w-full" onclick="document.getElementById('stopSheet').classList.remove('show')">
+          <i class="fa-solid fa-rotate-left text-[13px]"></i>重新录制
+        </button>
+      </div>
+    </div>
+  </div>
+  <style>
+    #stopSheet { pointer-events: none; }
+    #stopSheet.show { pointer-events: auto; }
+    #stopSheet.show > div:first-child { opacity: 1; }
+    #stopSheet.show > div:last-child { transform: translateY(0); }
+  </style>
+
   <div class="home-indicator"></div>
 </div>
+<script>
+var mkN = 4;
+function addMark() {
+  var row = document.querySelector('.marker-chip').parentElement;
+  var t = document.querySelector('.text-center.mt-6 > p.mono').childNodes[0].textContent;
+  var s = document.createElement('span');
+  s.className = 'marker-chip';
+  s.innerHTML = '<i class="fa-solid fa-bookmark text-[9px]" style="color:var(--rw-primary);"></i>标记 ' + (mkN++) + ' <b>' + t + '</b>';
+  row.appendChild(s);
+  rwToast('已添加标记 @ ' + t);
+}
+function togglePause(el) {
+  var i = el.querySelector('i');
+  var p = i.classList.toggle('fa-play');
+  i.classList.toggle('fa-pause', !p);
+  rwToast(p ? '已暂停' : '继续录制');
+}
+</script>
 <script src="assets/common.js"></script>
 </body>
 </html>

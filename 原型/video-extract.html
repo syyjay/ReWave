@@ -32,9 +32,9 @@
   </div>
 
   <div class="nav-bar">
-    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <div class="nav-left"><span class="nav-back" onclick="location.href='converter.html'"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
     <span class="nav-title">视频提取音频</span>
-    <div class="nav-right"><span class="text-[13px] t-brand font-medium"><i class="fa-solid fa-folder-open mr-0.5"></i>选视频</span></div>
+    <div class="nav-right"><span class="text-[13px] t-brand font-medium cursor-pointer" onclick="rwToast('从相册或「文件」选择视频（原型）')"><i class="fa-solid fa-folder-open mr-0.5"></i>选视频</span></div>
   </div>
 
   <div class="scroll px-6 pb-5">
@@ -45,7 +45,7 @@
         <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(10,10,15,0) 40%,rgba(10,10,15,.85) 100%);"></div>
         <!-- 播放按钮 -->
         <div class="absolute inset-0 flex items-center justify-center">
-          <div class="w-14 h-14 rounded-full flex items-center justify-center cursor-pointer" style="background:rgba(10,10,15,0.55);backdrop-filter:blur(8px);border:1px solid var(--rw-border-strong);">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center cursor-pointer" style="background:rgba(10,10,15,0.55);backdrop-filter:blur(8px);border:1px solid var(--rw-border-strong);" onclick="rwToast('视频预览（原型）')">
             <i class="fa-solid fa-play text-[16px] text-white ml-1"></i>
           </div>
         </div>
@@ -82,13 +82,13 @@
     <!-- 输出参数 -->
     <p class="section-label mt-5 mb-2">输出参数</p>
     <div class="card overflow-hidden">
-      <div class="list-row">
+      <div class="list-row" onclick="rwPick('采样率', ['44.1 kHz','48 kHz','96 kHz'], this)">
         <span class="text-[13px] font-medium t-2">采样率</span>
         <span class="mono ml-auto text-[12px] t-3">48 kHz</span>
         <i class="fa-solid fa-chevron-right chev"></i>
       </div>
       <div class="divider mx-4"></div>
-      <div class="list-row">
+      <div class="list-row" onclick="rwPick('比特率', ['128 kbps','192 kbps','256 kbps','320 kbps'], this)">
         <span class="text-[13px] font-medium t-2">比特率</span>
         <span class="mono ml-auto text-[12px] t-3">256 kbps</span>
         <i class="fa-solid fa-chevron-right chev"></i>
@@ -102,7 +102,7 @@
   </div>
 
   <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
-    <button class="btn btn-primary w-full">
+    <button class="btn btn-primary w-full" onclick="rwRun('提取音频','MP4 → M4A · 256kbps · 预计 8 秒','已提取 vlog_冰岛旅拍_audio.m4a · 24.1 MB',[['返回转换中心','converter.html',1]])">
       <i class="fa-solid fa-film text-[14px]"></i>开始提取
     </button>
     <p class="mono text-center text-[10px] t-4 mt-2">预计输出 24.1 MB · 耗时约 8 秒</p>

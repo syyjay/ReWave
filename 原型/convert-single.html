@@ -40,9 +40,9 @@
   </div>
 
   <div class="nav-bar">
-    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <div class="nav-left"><span class="nav-back" onclick="location.href='converter.html'"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
     <span class="nav-title">格式转换</span>
-    <div class="nav-right"><i class="fa-solid fa-circle-info t-3 text-[15px] cursor-pointer"></i></div>
+    <div class="nav-right"><i class="fa-solid fa-circle-info t-3 text-[15px] cursor-pointer" onclick="location.href='file-info.html'"></i></div>
   </div>
 
   <div class="scroll px-6 pb-5">
@@ -84,19 +84,19 @@
     <!-- 输出参数 -->
     <p class="section-label mt-5 mb-2">输出参数</p>
     <div class="card overflow-hidden">
-      <div class="list-row">
+      <div class="list-row" onclick="rwPick('采样率', ['44.1 kHz','48 kHz','96 kHz'], this)">
         <span class="text-[13px] font-medium t-2">采样率</span>
         <span class="mono ml-auto text-[12px] t-3">48 kHz</span>
         <i class="fa-solid fa-chevron-right chev"></i>
       </div>
       <div class="divider mx-4"></div>
-      <div class="list-row">
+      <div class="list-row" onclick="rwPick('比特率', ['128 kbps','192 kbps','256 kbps','320 kbps'], this)">
         <span class="text-[13px] font-medium t-2">比特率</span>
         <span class="mono ml-auto text-[12px] t-3">320 kbps</span>
         <i class="fa-solid fa-chevron-right chev"></i>
       </div>
       <div class="divider mx-4"></div>
-      <div class="list-row">
+      <div class="list-row" onclick="rwPick('声道', ['单声道','立体声'], this)">
         <span class="text-[13px] font-medium t-2">声道</span>
         <span class="ml-auto text-[12px] t-3">立体声</span>
         <i class="fa-solid fa-chevron-right chev"></i>
@@ -125,12 +125,21 @@
   </div>
 
   <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
-    <button class="btn btn-primary w-full">
+    <button class="btn btn-primary w-full" onclick="rwRun('格式转换','WAV → MP3 · 320kbps · 预计 5 秒','已生成 MP3 · 38.6 MB · 缩减 88.7%',[['再转一个','convert-single.html'],['返回转换中心','converter.html',1]])">
       <i class="fa-solid fa-shuffle text-[15px]"></i>开始转换
     </button>
   </div>
   <div class="home-indicator"></div>
 </div>
+<script>
+/* 锁定的 PRO 格式 → 解锁弹窗 */
+document.querySelectorAll('.fmt.locked').forEach(function (el) {
+  el.setAttribute('data-lock', '1');
+  el.addEventListener('click', function () {
+    rwPro(el.querySelector('b').textContent + ' 导出', 'Pro 解锁全部 11 种格式互转，最高 192kHz / 32bit。');
+  });
+});
+</script>
 <script src="assets/common.js"></script>
 </body>
 </html>

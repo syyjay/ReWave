@@ -31,9 +31,9 @@
   </div>
 
   <div class="nav-bar">
-    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <div class="nav-left"><span class="nav-back" onclick="location.href='converter.html'"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
     <span class="nav-title">文件信息</span>
-    <div class="nav-right"><i class="fa-solid fa-share t-3 text-[14px] cursor-pointer"></i></div>
+    <div class="nav-right"><i class="fa-solid fa-share t-3 text-[14px] cursor-pointer" onclick="rwToast('已唤起系统分享（原型）')"></i></div>
   </div>
 
   <div class="scroll px-6 pb-5">
@@ -45,7 +45,7 @@
           <p class="text-[14px] font-semibold truncate">母带_export.flac</p>
           <p class="mono text-[10px] t-3 mt-0.5">FLAC · 无损 · 2025-09-09 09:41</p>
         </div>
-        <div class="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer" style="background:var(--rw-primary-gradient);box-shadow:var(--rw-shadow-brand);">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer" style="background:var(--rw-primary-gradient);box-shadow:var(--rw-shadow-brand);" onclick="togglePlayIc(this)">
           <i class="fa-solid fa-play text-[12px] text-white ml-0.5"></i>
         </div>
       </div>
@@ -118,12 +118,20 @@
 
     <!-- 快捷操作 -->
     <div class="grid grid-cols-2 gap-2.5 mt-5">
-      <button class="btn btn-secondary"><i class="fa-solid fa-scissors text-[13px]"></i>跳转编辑</button>
-      <button class="btn btn-secondary accent"><i class="fa-solid fa-shuffle text-[13px]"></i>跳转转换</button>
+      <button class="btn btn-secondary" onclick="location.href='editor.html'"><i class="fa-solid fa-scissors text-[13px]"></i>跳转编辑</button>
+      <button class="btn btn-secondary accent" onclick="location.href='converter.html'"><i class="fa-solid fa-shuffle text-[13px]"></i>跳转转换</button>
     </div>
   </div>
   <div class="home-indicator"></div>
 </div>
+<script>
+function togglePlayIc(el) {
+  var i = el.querySelector('i');
+  var playing = i.classList.toggle('fa-pause');
+  i.classList.toggle('fa-play', !playing);
+  i.classList.toggle('ml-0.5', !playing);
+}
+</script>
 <script src="assets/common.js"></script>
 </body>
 </html>
