@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-013 · 音频合并 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <span class="nav-title">音频合并</span>
+    <div class="nav-right"><span class="text-[13px] t-brand font-medium"><i class="fa-solid fa-plus mr-0.5"></i>添加</span></div>
+  </div>
+
+  <div class="scroll px-6 pb-5">
+    <p class="section-label mt-2 mb-2 px-1">文件列表 · 拖拽排序</p>
+    <div class="flex flex-col gap-2">
+      <div class="card flex items-center gap-3 p-3.5 cursor-grab">
+        <span class="mono text-[15px] t-4 w-4 text-center">1</span>
+        <i class="fa-solid fa-grip-vertical t-4 text-[11px]"></i>
+        <div class="flex-1 min-w-0">
+          <p class="text-[13px] font-semibold truncate">开场白_take2.wav</p>
+          <div class="wave mt-1" data-seed="11" data-bars="52" style="height:16px;color:var(--rw-primary-300);"></div>
+          <p class="mono text-[9px] t-4 mt-1">00:01:24 · 48.2 MB</p>
+        </div>
+        <i class="fa-solid fa-xmark t-4 text-[13px] cursor-pointer"></i>
+      </div>
+      <div class="card flex items-center gap-3 p-3.5 cursor-grab">
+        <span class="mono text-[15px] t-4 w-4 text-center">2</span>
+        <i class="fa-solid fa-grip-vertical t-4 text-[11px]"></i>
+        <div class="flex-1 min-w-0">
+          <p class="text-[13px] font-semibold truncate">正片_0905.wav</p>
+          <div class="wave mt-1" data-seed="42" data-bars="52" style="height:16px;color:var(--rw-primary-300);"></div>
+          <p class="mono text-[9px] t-4 mt-1">00:09:32 · 326.1 MB</p>
+        </div>
+        <i class="fa-solid fa-xmark t-4 text-[13px] cursor-pointer"></i>
+      </div>
+      <div class="card flex items-center gap-3 p-3.5 cursor-grab" style="border-color:var(--rw-border-brand);">
+        <span class="mono text-[15px] t-4 w-4 text-center">3</span>
+        <i class="fa-solid fa-grip-vertical t-4 text-[11px]"></i>
+        <div class="flex-1 min-w-0">
+          <p class="text-[13px] font-semibold truncate">结尾_彩蛋.m4a</p>
+          <div class="wave mt-1" data-seed="5" data-bars="52" style="height:16px;color:var(--rw-primary-300);"></div>
+          <p class="mono text-[9px] t-4 mt-1">00:01:38 · 15.6 MB</p>
+        </div>
+        <i class="fa-solid fa-xmark t-4 text-[13px] cursor-pointer"></i>
+      </div>
+    </div>
+
+    <!-- 合并设置 -->
+    <p class="section-label mt-5 mb-2">衔接方式</p>
+    <div class="grid grid-cols-2 gap-2">
+      <div class="seg active" style="padding:12px 6px;">直接拼接 + 间隔</div>
+      <div class="seg" style="padding:12px 6px;">交叉淡化</div>
+    </div>
+
+    <div class="card overflow-hidden mt-3">
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">片段间隔</span>
+        <span class="mono ml-auto text-[12px] t-3">0.5 秒</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="px-4 py-3.5">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[13px] font-medium t-2">淡化时长</span>
+          <span class="mono text-[12px] t-brand">2.0 秒</span>
+        </div>
+        <div class="slider">
+          <div class="fill" style="width:40%;"></div>
+          <div class="thumb" style="left:40%;"></div>
+        </div>
+        <div class="flex justify-between mono text-[9px] t-4 mt-2"><span>0s</span><span>5s</span></div>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">输出格式</span>
+        <span class="mono ml-auto text-[12px] t-3">M4A · 256kbps</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+    </div>
+
+    <!-- 合并预览 -->
+    <div class="card p-4 mt-4">
+      <p class="section-label mb-3">合并预览</p>
+      <div class="rounded-[8px] overflow-hidden relative" style="height:44px;background:var(--rw-surface-1);">
+        <div class="wave px-1" data-seed="42" data-bars="84" style="color:var(--rw-primary-300);"></div>
+        <span class="absolute inset-y-0 w-px" style="left:13%;background:rgba(255,255,255,.2);"></span>
+        <span class="absolute inset-y-0 w-px" style="left:87%;background:rgba(255,255,255,.2);"></span>
+      </div>
+      <div class="flex items-center justify-between mt-3.5">
+        <div class="text-center">
+          <p class="mono text-[14px] font-bold">12:34</p>
+          <p class="text-[9px] t-4 mt-0.5">总时长</p>
+        </div>
+        <div class="text-center">
+          <p class="mono text-[14px] font-bold">3 段</p>
+          <p class="text-[9px] t-4 mt-0.5">文件数</p>
+        </div>
+        <div class="text-center">
+          <p class="mono text-[14px] font-bold t-brand">38.2 MB</p>
+          <p class="text-[9px] t-4 mt-0.5">预估体积</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
+    <button class="btn btn-primary w-full">
+      <i class="fa-solid fa-link text-[14px]"></i>开始合并
+    </button>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

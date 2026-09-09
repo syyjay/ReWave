@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-018 · 视频提取音频 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+  .fmt-chip {
+    padding: 10px 0; border-radius: 10px; text-align: center; cursor: pointer;
+    background: var(--rw-surface-1); border: 1px solid var(--rw-border-default);
+    font-size: 12px; font-weight: 700; color: var(--rw-text-tertiary);
+  }
+  .fmt-chip.active { background: rgba(79,107,255,0.15); border-color: var(--rw-border-brand); color: var(--rw-primary); }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <span class="nav-title">视频提取音频</span>
+    <div class="nav-right"><span class="text-[13px] t-brand font-medium"><i class="fa-solid fa-folder-open mr-0.5"></i>选视频</span></div>
+  </div>
+
+  <div class="scroll px-6 pb-5">
+    <!-- 视频卡片 -->
+    <div class="card-elevated overflow-hidden mt-2">
+      <div class="img-box relative" style="height:190px;">
+        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80" alt="视频缩略图" onerror="this.remove();">
+        <div class="absolute inset-0" style="background:linear-gradient(180deg,rgba(10,10,15,0) 40%,rgba(10,10,15,.85) 100%);"></div>
+        <!-- 播放按钮 -->
+        <div class="absolute inset-0 flex items-center justify-center">
+          <div class="w-14 h-14 rounded-full flex items-center justify-center cursor-pointer" style="background:rgba(10,10,15,0.55);backdrop-filter:blur(8px);border:1px solid var(--rw-border-strong);">
+            <i class="fa-solid fa-play text-[16px] text-white ml-1"></i>
+          </div>
+        </div>
+        <!-- 角标 -->
+        <span class="absolute bottom-2.5 right-2.5 mono text-[10px] px-2 py-0.5 rounded" style="background:rgba(0,0,0,.65);">12:34</span>
+        <span class="absolute top-2.5 left-2.5 mono text-[9px] px-2 py-0.5 rounded" style="background:rgba(0,0,0,.65);">MP4 · 1080p · 60fps</span>
+      </div>
+      <div class="p-4">
+        <p class="text-[14px] font-semibold truncate">vlog_冰岛旅拍_0903.mp4</p>
+        <p class="mono text-[10px] t-3 mt-1">1.24 GB · 3840 音轨 · H.264 + AAC</p>
+      </div>
+    </div>
+
+    <!-- 音轨信息 -->
+    <p class="section-label mt-5 mb-2">检测到的音轨</p>
+    <div class="card flex items-center gap-3 p-4" style="border-color:var(--rw-border-brand);">
+      <div class="ib ib-40 g-merge"><i class="fa-solid fa-film"></i></div>
+      <div class="flex-1">
+        <p class="text-[13px] font-semibold">音轨 1 · AAC 双声道</p>
+        <p class="mono text-[10px] t-3 mt-0.5">48 kHz · 253 kbps · 无损转码可选</p>
+      </div>
+      <i class="fa-solid fa-circle-check t-brand text-[16px]"></i>
+    </div>
+
+    <!-- 输出格式 -->
+    <p class="section-label mt-5 mb-2">输出音频格式</p>
+    <div class="grid grid-cols-4 gap-2">
+      <div class="fmt-chip active">M4A</div>
+      <div class="fmt-chip">MP3</div>
+      <div class="fmt-chip">WAV</div>
+      <div class="fmt-chip">AAC</div>
+    </div>
+
+    <!-- 输出参数 -->
+    <p class="section-label mt-5 mb-2">输出参数</p>
+    <div class="card overflow-hidden">
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">采样率</span>
+        <span class="mono ml-auto text-[12px] t-3">48 kHz</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">比特率</span>
+        <span class="mono ml-auto text-[12px] t-3">256 kbps</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+    </div>
+
+    <!-- 支持格式说明 -->
+    <p class="text-[10px] t-4 mt-4 px-1 leading-relaxed">
+      <i class="fa-solid fa-circle-info mr-1"></i>支持 MP4 / MOV / AVI / MKV / WebM / FLV / 3GP 共 7 种视频格式导入
+    </p>
+  </div>
+
+  <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
+    <button class="btn btn-primary w-full">
+      <i class="fa-solid fa-film text-[14px]"></i>开始提取
+    </button>
+    <p class="mono text-center text-[10px] t-4 mt-2">预计输出 24.1 MB · 耗时约 8 秒</p>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

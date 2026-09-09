@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-014 · 音频分割 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <span class="nav-title">音频分割</span>
+    <div class="nav-right"><i class="fa-solid fa-circle-question t-3 text-[15px] cursor-pointer"></i></div>
+  </div>
+
+  <div class="scroll px-6 pb-5">
+    <!-- 源文件 -->
+    <div class="card-elevated p-4 mt-2">
+      <div class="flex items-center gap-3">
+        <div class="ib ib-44 g-separate"><i class="fa-solid fa-file-audio"></i></div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[14px] font-semibold truncate">会议全程录音 0905.m4a</p>
+          <p class="mono text-[10px] t-3 mt-0.5">96.2 MB · 00:32:15 · AAC 44.1kHz</p>
+        </div>
+      </div>
+      <div class="mt-3 rounded-[8px] overflow-hidden relative" style="height:36px;background:var(--rw-surface-1);">
+        <div class="wave px-1" data-seed="99" data-bars="80" style="color:var(--rw-primary-300);opacity:.9;"></div>
+        <span class="absolute inset-y-0 w-px" style="left:18%;background:rgba(79,107,255,.8);"></span>
+        <span class="absolute inset-y-0 w-px" style="left:47%;background:rgba(79,107,255,.8);"></span>
+        <span class="absolute inset-y-0 w-px" style="left:78%;background:rgba(79,107,255,.8);"></span>
+      </div>
+    </div>
+
+    <!-- 分割方式 -->
+    <p class="section-label mt-5 mb-2">分割方式</p>
+    <div class="grid grid-cols-4 gap-2">
+      <div class="seg">按时间</div>
+      <div class="seg active">按静音段</div>
+      <div class="seg">手动</div>
+      <div class="seg">按大小</div>
+    </div>
+
+    <!-- 检测参数 -->
+    <div class="card mt-3 overflow-hidden">
+      <div class="px-4 py-3.5">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[13px] font-medium t-2">静音阈值</span>
+          <span class="mono text-[12px] t-brand">-42 dB</span>
+        </div>
+        <div class="slider">
+          <div class="fill" style="width:30%;"></div>
+          <div class="thumb" style="left:30%;"></div>
+        </div>
+        <div class="flex justify-between mono text-[9px] t-4 mt-2"><span>-60dB</span><span>0dB</span></div>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="px-4 py-3.5">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[13px] font-medium t-2">最短静音时长</span>
+          <span class="mono text-[12px] t-brand">0.8 秒</span>
+        </div>
+        <div class="slider">
+          <div class="fill" style="width:15%;"></div>
+          <div class="thumb" style="left:15%;"></div>
+        </div>
+        <div class="flex justify-between mono text-[9px] t-4 mt-2"><span>0.1s</span><span>5s</span></div>
+      </div>
+    </div>
+
+    <!-- 检测结果 -->
+    <div class="flex items-center justify-between mt-5 mb-2 px-1">
+      <span class="section-label">检测结果 · 5 段</span>
+      <span class="chip chip-info"><i class="fa-solid fa-wand-magic-sparkles"></i>重新检测</span>
+    </div>
+    <div class="card overflow-hidden">
+      <div class="list-row">
+        <span class="mono text-[11px] t-3 w-4">01</span>
+        <div class="flex-1">
+          <p class="mono text-[12px]">00:00:00 → 00:05:42 <span class="t-4">· 5:42</span></p>
+        </div>
+        <span class="chip chip-gray">保留</span>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="mono text-[11px] t-3 w-4">02</span>
+        <div class="flex-1">
+          <p class="mono text-[12px]">00:05:42 → 00:06:15 <span class="t-4">· 静音 0:33</span></p>
+        </div>
+        <span class="chip chip-err"><i class="fa-solid fa-trash-can"></i>删除</span>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="mono text-[11px] t-3 w-4">03</span>
+        <div class="flex-1">
+          <p class="mono text-[12px]">00:06:15 → 00:14:08 <span class="t-4">· 7:53</span></p>
+        </div>
+        <span class="chip chip-gray">保留</span>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="mono text-[11px] t-3 w-4">04</span>
+        <div class="flex-1">
+          <p class="mono text-[12px]">00:14:08 → 00:24:51 <span class="t-4">· 10:43</span></p>
+        </div>
+        <span class="chip chip-gray">保留</span>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="mono text-[11px] t-3 w-4">05</span>
+        <div class="flex-1">
+          <p class="mono text-[12px]">00:24:51 → 00:32:15 <span class="t-4">· 7:24</span></p>
+        </div>
+        <span class="chip chip-gray">保留</span>
+      </div>
+    </div>
+
+    <!-- 输出设置 -->
+    <div class="card overflow-hidden mt-4">
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">输出格式</span>
+        <span class="mono ml-auto text-[12px] t-3">M4A · 128kbps</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">命名规则</span>
+        <span class="mono ml-auto text-[12px] t-3">会议录音_00x</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
+    <button class="btn btn-primary w-full">
+      <i class="fa-solid fa-scissors text-[14px]"></i>分割为 4 个文件
+    </button>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

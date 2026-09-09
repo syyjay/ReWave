@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-007 · 音频压缩 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <span class="nav-title">音频压缩</span>
+    <div class="nav-right"><i class="fa-solid fa-circle-question t-3 text-[15px] cursor-pointer"></i></div>
+  </div>
+
+  <div class="scroll px-6 pb-5">
+    <!-- 源文件 -->
+    <div class="card-elevated p-4 mt-2">
+      <div class="flex items-center gap-3">
+        <div class="ib ib-44 g-compress"><i class="fa-solid fa-file-audio"></i></div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[14px] font-semibold truncate">采访 0903 · 完整版.wav</p>
+          <p class="mono text-[10px] t-3 mt-0.5">342.8 MB · 00:12:47 · WAV 48kHz/24bit</p>
+        </div>
+        <div class="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer" style="background:var(--rw-surface-2);border:1px solid var(--rw-border-default);">
+          <i class="fa-solid fa-play text-[11px] t-2 ml-0.5"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- 压缩方案 -->
+    <p class="section-label mt-5 mb-2">压缩方案</p>
+    <div class="grid grid-cols-4 gap-2">
+      <div class="seg">轻度</div>
+      <div class="seg active">标准</div>
+      <div class="seg">极限</div>
+      <div class="seg">自定义</div>
+    </div>
+    <p class="text-[10px] t-4 mt-2 px-1">标准方案 · AAC 128kbps · 语音内容推荐，人声清晰自然</p>
+
+    <!-- 压缩预览 -->
+    <p class="section-label mt-5 mb-2">压缩预览</p>
+    <div class="card p-4">
+      <div class="flex justify-between text-[11px] mb-2">
+        <span class="t-3">原始</span>
+        <span class="mono t-2">342.8 MB · WAV 1411kbps</span>
+      </div>
+      <div class="rounded-full overflow-hidden" style="height:8px;background:rgba(255,255,255,0.06);">
+        <div class="h-full rounded-full" style="width:100%;background:rgba(255,255,255,0.18);"></div>
+      </div>
+      <div class="flex justify-between text-[11px] mt-4 mb-2">
+        <span class="t-brand">压缩后</span>
+        <span class="mono t-brand">12.1 MB · AAC 128kbps</span>
+      </div>
+      <div class="rounded-full overflow-hidden" style="height:8px;background:rgba(255,255,255,0.06);">
+        <div class="h-full rounded-full" style="width:3.5%;background:var(--rw-primary-gradient);"></div>
+      </div>
+      <div class="flex items-center justify-center gap-6 mt-4 pt-3" style="border-top:1px solid var(--rw-border-subtle);">
+        <span class="mono text-[15px] t-brand font-bold">-96.5%</span>
+        <span class="text-[10px] t-4">|</span>
+        <span class="mono text-[13px] t-2">预计耗时 4 秒</span>
+      </div>
+    </div>
+
+    <!-- 压缩统计 -->
+    <p class="section-label mt-5 mb-2">输出参数</p>
+    <div class="card overflow-hidden">
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">输出格式</span>
+        <span class="mono ml-auto text-[12px] t-3">AAC</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">目标比特率</span>
+        <span class="mono ml-auto text-[12px] t-3">128 kbps</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">采样率</span>
+        <span class="mono ml-auto text-[12px] t-3">44.1 kHz</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+    </div>
+
+    <!-- 试听 -->
+    <div class="card flex items-center gap-3 p-4 mt-4 cursor-pointer">
+      <div class="ib ib-40 g-compress"><i class="fa-solid fa-headphones"></i></div>
+      <div class="flex-1">
+        <p class="text-[13px] font-semibold">试听压缩效果</p>
+        <p class="text-[10px] t-4 mt-0.5">对比原始与压缩后的音质差异</p>
+      </div>
+      <i class="fa-solid fa-chevron-right t-4 text-[12px]"></i>
+    </div>
+  </div>
+
+  <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
+    <button class="btn btn-primary w-full">
+      <i class="fa-solid fa-compress text-[15px]"></i>开始压缩
+    </button>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

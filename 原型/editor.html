@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-003 · 编辑工作台 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+  .track-box { position: relative; background: var(--rw-surface-1); border: 1px solid var(--rw-border-default); border-radius: 10px; overflow: hidden; }
+  .ms-btn {
+    width: 20px; height: 20px; border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px; font-weight: 700;
+    background: var(--rw-surface-2); color: var(--rw-text-quaternary);
+    cursor: pointer;
+  }
+  .ms-btn.on-m { background: var(--rw-error-bg); color: var(--rw-error); }
+  .ms-btn.on-s { background: var(--rw-warning-bg); color: var(--rw-warning); }
+  .tool-chip {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 8px 0; border-radius: 12px; cursor: pointer;
+    color: var(--rw-text-secondary);
+    background: var(--rw-surface-1); border: 1px solid var(--rw-border-default);
+    transition: transform .12s;
+  }
+  .tool-chip:active { transform: scale(.94); }
+  .tool-chip i { font-size: 14px; }
+  .tool-chip span { font-size: 9px; }
+  .pt-btn { width: 36px; height: 36px; display:flex; align-items:center; justify-content:center; border-radius:50%; color: var(--rw-text-secondary); cursor:pointer; font-size:14px; }
+  .pt-btn:active { transform: scale(.9); }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <!-- 导航栏 -->
+  <div class="nav-bar">
+    <div class="nav-left">
+      <i class="fa-solid fa-xmark t-2 text-[16px] cursor-pointer"></i>
+    </div>
+    <div class="text-center leading-tight">
+      <p class="nav-title text-[15px] truncate" style="max-width:210px;">第42期播客 · 粗剪</p>
+      <p class="mono text-[9px] t-4">多轨工程 · 已自动保存</p>
+    </div>
+    <div class="nav-right gap-2.5">
+      <i class="fa-solid fa-rotate-left t-3 text-[14px] cursor-pointer"></i>
+      <i class="fa-solid fa-rotate-right t-4 text-[14px] cursor-pointer"></i>
+    </div>
+  </div>
+
+  <!-- 工具面板切换 -->
+  <div class="no-shrink flex gap-2 px-6 pt-1 pb-2">
+    <div class="seg active flex-1">剪辑</div>
+    <div class="seg flex-1 flex items-center justify-center gap-1">AI 工具<span class="pro-badge">PRO</span></div>
+    <div class="seg flex-1">效果器</div>
+    <div class="seg flex-1">音轨</div>
+  </div>
+
+  <!-- 多轨区 -->
+  <div class="scroll px-4">
+    <div class="ruler mb-1">
+      <b>0:00</b><b>1:00</b><b>2:00</b><b>3:00</b><b>4:00</b><b>5:00</b><b>6:00</b>
+    </div>
+
+    <!-- 音轨 1 · 人声 -->
+    <div class="flex flex-col gap-1.5 mb-2.5">
+      <div class="flex items-center gap-2 px-1">
+        <div class="ib ib-28"><i class="fa-solid fa-podcast"></i></div>
+        <span class="text-[12px] font-semibold t-2">人声 A</span>
+        <span class="mono text-[9px] t-4">48kHz/24bit</span>
+        <div class="ml-auto flex gap-1">
+          <div class="ms-btn on-m">M</div>
+          <div class="ms-btn">S</div>
+          <i class="fa-solid fa-sliders text-[11px] t-4 ml-1"></i>
+        </div>
+      </div>
+      <div class="track-box" style="height:84px;">
+        <div class="wave px-1" data-seed="42" data-bars="72" style="color:var(--rw-primary-300);"></div>
+        <div class="wave-selection" style="left:22%;width:31%;"></div>
+        <div class="wave-handle" style="left:calc(22% - 5px);"></div>
+        <div class="wave-handle" style="left:calc(53% - 5px);"></div>
+        <div class="playhead" style="left:38%;"></div>
+      </div>
+    </div>
+
+    <!-- 音轨 2 · BGM -->
+    <div class="flex flex-col gap-1.5 mb-2.5">
+      <div class="flex items-center gap-2 px-1">
+        <div class="ib ib-28 g-merge"><i class="fa-solid fa-music"></i></div>
+        <span class="text-[12px] font-semibold t-2">BGM · Lo-fi Beat</span>
+        <span class="mono text-[9px] t-4">-6.2dB</span>
+        <div class="ml-auto flex gap-1">
+          <div class="ms-btn">M</div>
+          <div class="ms-btn on-s">S</div>
+          <i class="fa-solid fa-sliders text-[11px] t-4 ml-1"></i>
+        </div>
+      </div>
+      <div class="track-box" style="height:60px;">
+        <div class="wave px-1" data-seed="77" data-bars="72" style="color:var(--rw-primary-300);opacity:.5;"></div>
+        <div class="playhead" style="left:38%;"></div>
+      </div>
+    </div>
+
+    <!-- 添加音轨 -->
+    <div class="flex items-center justify-center gap-2 rounded-[10px] cursor-pointer"
+         style="height:30px;border:1px dashed var(--rw-border-strong);">
+      <i class="fa-solid fa-plus text-[10px] t-4"></i>
+      <span class="text-[11px] t-4">添加音轨（2/4 轨）</span>
+    </div>
+  </div>
+
+  <!-- 播放控制栏 -->
+  <div class="no-shrink flex items-center px-5 py-2.5" style="background:var(--rw-bg-elevated);border-top:1px solid var(--rw-border-subtle);">
+    <div class="mono text-[10px] leading-tight">
+      <p class="t-brand">00:04:51</p>
+      <p class="t-4">00:12:47</p>
+    </div>
+    <div class="flex-1 flex items-center justify-center gap-1">
+      <div class="pt-btn"><i class="fa-solid fa-backward-step"></i></div>
+      <div class="pt-btn"><i class="fa-solid fa-backward"></i></div>
+      <div class="pt-btn" style="width:46px;height:46px;background:var(--rw-primary-gradient);color:#fff;box-shadow:var(--rw-shadow-brand);">
+        <i class="fa-solid fa-play text-[15px] ml-0.5"></i>
+      </div>
+      <div class="pt-btn"><i class="fa-solid fa-forward"></i></div>
+      <div class="pt-btn"><i class="fa-solid fa-forward-step"></i></div>
+    </div>
+    <div class="flex flex-col gap-1.5 items-end">
+      <span class="mono text-[9px] t-3 cursor-pointer px-2 py-0.5 rounded" style="background:var(--rw-surface-2);"><i class="fa-solid fa-repeat"></i> 循环</span>
+      <span class="mono text-[9px] t-3 cursor-pointer px-2 py-0.5 rounded" style="background:var(--rw-surface-2);">1.0x</span>
+    </div>
+  </div>
+
+  <!-- 编辑工具栏 -->
+  <div class="no-shrink flex gap-1.5 px-4 py-2" style="background:var(--rw-bg-elevated);border-top:1px solid var(--rw-border-subtle);">
+    <div class="tool-chip"><i class="fa-solid fa-scissors"></i><span>剪切</span></div>
+    <div class="tool-chip"><i class="fa-solid fa-copy"></i><span>复制</span></div>
+    <div class="tool-chip"><i class="fa-solid fa-trash-can t-error"></i><span>删除</span></div>
+    <div class="tool-chip"><i class="fa-solid fa-arrow-trend-up"></i><span>淡入</span></div>
+    <div class="tool-chip"><i class="fa-solid fa-arrow-trend-down"></i><span>淡出</span></div>
+    <div class="tool-chip"><i class="fa-solid fa-magnifying-glass-plus"></i><span>放大</span></div>
+    <div class="tool-chip"><i class="fa-solid fa-magnifying-glass-minus"></i><span>缩小</span></div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item"><i class="fa-solid fa-house"></i><span>首页</span></div>
+    <div class="tab-item active"><i class="fa-solid fa-scissors"></i><span>编辑</span></div>
+    <div class="tab-item"><i class="fa-solid fa-shuffle"></i><span>转换</span></div>
+    <div class="tab-item"><i class="fa-solid fa-gear"></i><span>设置</span></div>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

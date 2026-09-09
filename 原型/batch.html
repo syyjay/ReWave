@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-006 · 批量处理 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+  .check {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 1.5px solid var(--rw-border-strong);
+    display: flex; align-items: center; justify-content: center;
+    flex: none;
+  }
+  .check.on { background: var(--rw-primary); border-color: var(--rw-primary); }
+  .check.on i { font-size: 10px; color: #fff; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <div class="nav-title">批量处理 <span class="pro-badge ml-1">PRO</span></div>
+    <div class="nav-right"><span class="text-[13px] t-brand font-medium">全选</span></div>
+  </div>
+
+  <!-- 操作类型 -->
+  <div class="no-shrink flex gap-2 px-6 py-2 overflow-x-auto">
+    <div class="seg active" style="min-width:52px;">转换</div>
+    <div class="seg" style="min-width:52px;">降噪</div>
+    <div class="seg" style="min-width:64px;">标准化</div>
+    <div class="seg" style="min-width:52px;">裁剪</div>
+    <div class="seg" style="min-width:52px;">压缩</div>
+    <div class="seg" style="min-width:64px;">重命名</div>
+  </div>
+
+  <div class="scroll px-6 pb-3">
+    <!-- 已选统计 -->
+    <div class="card flex items-center justify-between p-3 mb-2.5 mt-1">
+      <span class="text-[12px] t-2"><b class="t-brand">已选 3 / 12</b> 个文件</span>
+      <span class="mono text-[11px] t-3">合计 1.2 GB</span>
+    </div>
+
+    <!-- 文件列表 -->
+    <div class="card overflow-hidden">
+      <div class="list-row">
+        <div class="check on"><i class="fa-solid fa-check"></i></div>
+        <div class="ib ib-40"><i class="fa-solid fa-file-audio"></i></div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[13px] font-semibold truncate">第42期播客_raw.wav</p>
+          <p class="mono text-[10px] t-3 mt-0.5">342.8 MB · 12:47</p>
+        </div>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <div class="check on"><i class="fa-solid fa-check"></i></div>
+        <div class="ib ib-40 g-merge"><i class="fa-solid fa-microphone"></i></div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[13px] font-semibold truncate">采访素材_02.wav</p>
+          <p class="mono text-[10px] t-3 mt-0.5">216.5 MB · 08:32</p>
+        </div>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <div class="check on"><i class="fa-solid fa-check"></i></div>
+        <div class="ib ib-40 g-compress"><i class="fa-solid fa-headphones"></i></div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[13px] font-semibold truncate">BGM_night_drive.flac</p>
+          <p class="mono text-[10px] t-3 mt-0.5">88.3 MB · 05:21</p>
+        </div>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <div class="check"></div>
+        <div class="ib ib-40 g-info"><i class="fa-solid fa-music"></i></div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[13px] font-semibold truncate">demo_take3.m4a</p>
+          <p class="mono text-[10px] t-3 mt-0.5">12.7 MB · 03:48</p>
+        </div>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <div class="check"></div>
+        <div class="ib ib-40 g-separate"><i class="fa-solid fa-podcast"></i></div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[13px] font-semibold truncate">单口_0905.m4a</p>
+          <p class="mono text-[10px] t-3 mt-0.5">96.2 MB · 32:15</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 操作参数 -->
+    <p class="section-label mt-4 mb-2">操作参数 · 批量转换</p>
+    <div class="card overflow-hidden">
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">目标格式</span>
+        <span class="mono ml-auto text-[12px] t-3">MP3</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">比特率</span>
+        <span class="mono ml-auto text-[12px] t-3">320 kbps</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">完成后自动删除源文件</span>
+        <div class="toggle"></div>
+      </div>
+    </div>
+
+    <!-- 处理预估 -->
+    <div class="card p-4 mt-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="section-label">处理预估</p>
+          <p class="mono text-[13px] mt-1.5">647.6 MB <span class="t-brand">→ 72.9 MB</span></p>
+        </div>
+        <span class="chip chip-done"><i class="fa-solid fa-circle-arrow-down"></i>缩减 88.7%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
+    <button class="btn btn-primary w-full">
+      <i class="fa-solid fa-layer-group text-[15px]"></i>开始批量处理
+    </button>
+    <p class="mono text-center text-[10px] t-4 mt-2">3 个文件 · 预计 15 秒 · 支持后台运行</p>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-008 · 录音 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+  .pulse-ring {
+    position: absolute; inset: 0; border-radius: 50%;
+    border: 1.5px solid rgba(239, 68, 68, 0.5);
+    animation: rw-pulse 2s ease-out infinite;
+  }
+  .pulse-ring:nth-child(2) { animation-delay: 1s; }
+  @keyframes rw-pulse {
+    0%   { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.65); opacity: 0; }
+  }
+  .meter { width: 5px; border-radius: 3px; background: rgba(255,255,255,0.08); position: relative; overflow: hidden; }
+  .meter b { position: absolute; bottom: 0; left: 0; right: 0; background: var(--rw-success); border-radius: 3px; }
+  .meter.hot b { background: linear-gradient(0deg, #10B981 0%, #10B981 78%, #EF4444 78%); }
+  .marker-chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 4px 9px; border-radius: 999px; flex: none;
+    background: var(--rw-surface-2); border: 1px solid var(--rw-border-default);
+    font-size: 10px; color: var(--rw-text-secondary);
+  }
+  .marker-chip b { font-family: var(--rw-font-mono); font-weight: 500; color: var(--rw-primary); }
+</style>
+</head>
+<body>
+<div class="phone" style="background:#060609;">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <!-- 导航 -->
+  <div class="nav-bar">
+    <div class="nav-left">
+      <i class="fa-solid fa-chevron-left t-2 text-[16px] cursor-pointer"></i>
+    </div>
+    <div class="text-center leading-tight">
+      <p class="nav-title text-[15px]">新录音</p>
+      <p class="flex items-center justify-center gap-1.5 text-[10px]" style="color:var(--rw-error);">
+        <span class="inline-block w-1.5 h-1.5 rounded-full" style="background:var(--rw-error);"></span>录音中 · 已录制 00:12:47
+      </p>
+    </div>
+    <div class="nav-right">
+      <div class="btn-icon"><i class="fa-solid fa-gear text-[13px]"></i></div>
+    </div>
+  </div>
+
+  <div class="flex-1 flex flex-col min-h-0 px-6">
+    <!-- 实时波形 + 电平表 -->
+    <div class="flex gap-3 mt-2 flex-1 min-h-0">
+      <div class="flex flex-col justify-between py-1" style="height:170px;">
+        <div class="meter" style="height:170px;"><b style="height:62%;"></b></div>
+        <div class="meter" style="height:170px;"><b style="height:74%;"></b></div>
+        <div class="meter hot" style="height:170px;"><b style="height:97%;"></b></div>
+        <div class="meter hot" style="height:170px;"><b style="height:95%;"></b></div>
+      </div>
+      <div class="flex-1 flex flex-col justify-center">
+        <div class="flex gap-2 items-center mb-2">
+          <span class="chip chip-err" style="font-size:9px;"><i class="fa-solid fa-triangle-exclamation"></i>右声道接近削波</span>
+        </div>
+        <div class="rounded-[12px] overflow-hidden relative" style="height:120px;background:var(--rw-surface-1);border:1px solid var(--rw-border-default);">
+          <div class="wave px-1.5" data-seed="128" data-bars="62" style="color:var(--rw-record);opacity:.9;"></div>
+          <div class="absolute inset-y-0 left-1/2 w-px" style="background:rgba(255,255,255,0.25);"></div>
+        </div>
+        <p class="mono text-[9px] t-4 mt-2 text-center">输入电平峰值 -1.2 dBFS · 实时波形 60fps</p>
+      </div>
+    </div>
+
+    <!-- 计时器 -->
+    <div class="text-center mt-6">
+      <p class="mono" style="font-size:56px;font-weight:200;letter-spacing:1px;">12:47<span class="t-4">.326</span></p>
+      <!-- 标记 -->
+      <div class="flex gap-2 justify-center mt-3 px-2 overflow-x-auto">
+        <span class="marker-chip"><i class="fa-solid fa-bookmark text-[9px]" style="color:var(--rw-primary);"></i>开场 <b>02:14</b></span>
+        <span class="marker-chip"><i class="fa-solid fa-bookmark text-[9px]" style="color:var(--rw-primary);"></i>嘉宾提问 <b>07:41</b></span>
+        <span class="marker-chip"><i class="fa-solid fa-bookmark text-[9px]" style="color:var(--rw-primary);"></i>广告位 <b>11:09</b></span>
+      </div>
+    </div>
+
+    <!-- 参数显示 -->
+    <div class="card flex items-center justify-around py-3 mt-6 mx-2">
+      <div class="text-center">
+        <p class="mono text-[12px] font-medium">48 kHz</p>
+        <p class="text-[9px] t-4 mt-0.5">采样率</p>
+      </div>
+      <span class="divider" style="width:1px;height:20px;"></span>
+      <div class="text-center">
+        <p class="mono text-[12px] font-medium">24 bit</p>
+        <p class="text-[9px] t-4 mt-0.5">位深</p>
+      </div>
+      <span class="divider" style="width:1px;height:20px;"></span>
+      <div class="text-center">
+        <p class="mono text-[12px] font-medium">立体声</p>
+        <p class="text-[9px] t-4 mt-0.5">声道</p>
+      </div>
+      <span class="divider" style="width:1px;height:20px;"></span>
+      <div class="text-center">
+        <p class="text-[12px] font-medium">iPhone 麦克风</p>
+        <p class="text-[9px] t-4 mt-0.5">输入源</p>
+      </div>
+    </div>
+
+    <!-- 控制按钮 -->
+    <div class="flex items-center justify-around mt-8 pb-8">
+      <div class="btn-icon lg cursor-pointer" style="width:56px;height:56px;border-radius:16px;">
+        <i class="fa-solid fa-bookmark text-[18px]" style="color:var(--rw-primary);"></i>
+      </div>
+      <div class="relative flex items-center justify-center cursor-pointer" style="width:88px;height:88px;">
+        <span class="pulse-ring"></span><span class="pulse-ring"></span>
+        <div class="flex items-center justify-center rounded-full" style="width:76px;height:76px;background:var(--rw-gradient-record);box-shadow:0 8px 32px rgba(239,68,68,0.35);">
+          <i class="fa-solid fa-pause text-[26px] text-white"></i>
+        </div>
+      </div>
+      <div class="btn-icon lg cursor-pointer" style="width:56px;height:56px;border-radius:16px;">
+        <i class="fa-solid fa-stop text-[16px]" style="color:var(--rw-text-secondary);"></i>
+      </div>
+    </div>
+    <p class="text-center text-[10px] t-4 mb-4">左：添加标记 · 中：暂停 / 继续 · 右：停止并保存</p>
+  </div>
+
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

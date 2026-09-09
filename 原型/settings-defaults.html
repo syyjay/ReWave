@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-021 · 默认参数 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-left"><span class="nav-back" onclick="location.href='settings.html'"><i class="fa-solid fa-chevron-left"></i>设置</span></div>
+    <span class="nav-title">默认参数</span>
+    <div class="nav-right"></div>
+  </div>
+
+  <div class="scroll px-6 pb-8">
+    <!-- 默认录音设置 -->
+    <p class="section-label mt-3 mb-2 px-1">录音参数</p>
+    <div class="card overflow-hidden">
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2 flex-1">采样率</span>
+        <span class="mono text-[12px] t-3">48 kHz</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2 flex-1">位深</span>
+        <span class="mono text-[12px] t-3">24 bit</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2 flex-1">声道</span>
+        <span class="text-[12px] t-3">立体声</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2 flex-1">录音格式</span>
+        <span class="mono text-[12px] t-3">M4A</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+    </div>
+    <p class="text-[10px] t-4 mt-2 px-1">可选：22.05 / 44.1 / 48 / 96 / 192 kHz · 16 / 24 / 32bit float · WAV / M4A</p>
+
+    <!-- 默认导出设置 -->
+    <p class="section-label mt-5 mb-2 px-1">导出参数</p>
+    <div class="card overflow-hidden">
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2 flex-1">格式</span>
+        <span class="mono text-[12px] t-3">WAV</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2 flex-1">比特率</span>
+        <span class="mono text-[12px] t-3">320 kbps</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2 flex-1">采样率</span>
+        <span class="mono text-[12px] t-3">48 kHz</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+    </div>
+
+    <!-- 音质上限说明 -->
+    <div class="card flex items-center gap-3 p-4 mt-5">
+      <div class="ib ib-40"><i class="fa-solid fa-crown"></i></div>
+      <div class="flex-1">
+        <p class="text-[13px] font-semibold">导出音质上限</p>
+        <p class="text-[11px] t-3 mt-1 leading-relaxed">免费版 ≤ 48kHz / 16bit<br>Pro 最高 192kHz / 32bit</p>
+      </div>
+      <span class="text-[12px] font-bold t-brand flex-none">升级</span>
+    </div>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

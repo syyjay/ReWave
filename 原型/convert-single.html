@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-012 · 格式转换 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+  .fmt {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    padding: 10px 2px; border-radius: 12px; cursor: pointer;
+    background: var(--rw-surface-1); border: 1px solid var(--rw-border-default);
+    transition: all .15s;
+  }
+  .fmt b { font-size: 12px; font-weight: 700; }
+  .fmt span { font-size: 8px; color: var(--rw-text-quaternary); }
+  .fmt.active { background: rgba(79,107,255,0.15); border-color: var(--rw-border-brand); }
+  .fmt.active b { color: var(--rw-primary); }
+  .fmt.locked { opacity: .55; }
+  .fmt .pro-badge { position: absolute; top: -6px; right: -4px; }
+  .fmt .lock { position: absolute; top: 4px; right: 5px; font-size: 7px; color: var(--rw-text-quaternary); }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <span class="nav-title">格式转换</span>
+    <div class="nav-right"><i class="fa-solid fa-circle-info t-3 text-[15px] cursor-pointer"></i></div>
+  </div>
+
+  <div class="scroll px-6 pb-5">
+    <!-- 源文件 -->
+    <div class="card-elevated p-4 mt-2">
+      <div class="flex items-center gap-3">
+        <div class="ib ib-44"><i class="fa-solid fa-file-audio"></i></div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[14px] font-semibold truncate">播客第42期_raw.wav</p>
+          <p class="mono text-[10px] t-3 mt-0.5">342.8 MB · 00:12:47 · WAV 48kHz/24bit</p>
+        </div>
+        <i class="fa-solid fa-check t-brand text-[13px]"></i>
+      </div>
+      <div class="mt-3 rounded-[8px] overflow-hidden" style="height:36px;background:var(--rw-surface-1);">
+        <div class="wave px-1" data-seed="42" data-bars="80" style="color:var(--rw-primary-300);"></div>
+      </div>
+    </div>
+
+    <div class="flex justify-center my-3">
+      <div class="ib ib-34 g-convert"><i class="fa-solid fa-arrow-down" style="font-size:13px;"></i></div>
+    </div>
+
+    <!-- 目标格式 11 种 -->
+    <p class="section-label mb-2">目标格式（11 种）</p>
+    <div class="grid grid-cols-4 gap-2">
+      <div class="fmt active"><b>MP3</b><span>有损 · Free</span></div>
+      <div class="fmt"><b>WAV</b><span>无损</span></div>
+      <div class="fmt"><b>AAC</b><span>有损</span></div>
+      <div class="fmt"><b>M4A</b><span>无损</span></div>
+      <div class="fmt"><b>OGG</b><span>有损</span></div>
+      <div class="fmt locked"><span class="pro-badge">PRO</span><b>FLAC</b><span>无损</span></div>
+      <div class="fmt locked"><span class="pro-badge">PRO</span><b>AIFF</b><span>无损</span></div>
+      <div class="fmt locked"><span class="pro-badge">PRO</span><b>WMA</b><span>有损</span></div>
+      <div class="fmt locked"><span class="pro-badge">PRO</span><b>OPUS</b><span>有损</span></div>
+      <div class="fmt locked"><span class="pro-badge">PRO</span><b>APE</b><span>无损</span></div>
+      <div class="fmt locked"><span class="pro-badge">PRO</span><b>WV</b><span>混合</span></div>
+    </div>
+
+    <!-- 输出参数 -->
+    <p class="section-label mt-5 mb-2">输出参数</p>
+    <div class="card overflow-hidden">
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">采样率</span>
+        <span class="mono ml-auto text-[12px] t-3">48 kHz</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">比特率</span>
+        <span class="mono ml-auto text-[12px] t-3">320 kbps</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">声道</span>
+        <span class="ml-auto text-[12px] t-3">立体声</span>
+        <i class="fa-solid fa-chevron-right chev"></i>
+      </div>
+    </div>
+
+    <!-- 转换预估 -->
+    <p class="section-label mt-5 mb-2">体积预估</p>
+    <div class="card p-4">
+      <div class="flex justify-between text-[11px] mb-2">
+        <span class="t-3">原始 WAV</span>
+        <span class="mono t-2">342.8 MB</span>
+      </div>
+      <div class="rounded-full overflow-hidden" style="height:8px;background:rgba(255,255,255,0.06);">
+        <div class="h-full rounded-full" style="width:100%;background:rgba(255,255,255,0.18);"></div>
+      </div>
+      <div class="flex justify-between text-[11px] mt-4 mb-2">
+        <span class="t-brand">MP3 · 320kbps</span>
+        <span class="mono t-brand">38.6 MB</span>
+      </div>
+      <div class="rounded-full overflow-hidden" style="height:8px;background:rgba(255,255,255,0.06);">
+        <div class="h-full rounded-full" style="width:11.3%;background:var(--rw-primary-gradient);"></div>
+      </div>
+      <p class="mono text-center text-[11px] t-success mt-4"><i class="fa-solid fa-circle-arrow-down mr-1"></i>体积缩减 88.7% · 预计耗时 5 秒</p>
+    </div>
+  </div>
+
+  <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
+    <button class="btn btn-primary w-full">
+      <i class="fa-solid fa-shuffle text-[15px]"></i>开始转换
+    </button>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

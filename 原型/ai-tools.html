@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-004 · AI 工具面板 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+  .sheet {
+    border-radius: 24px 24px 0 0;
+    background: var(--rw-bg-elevated-2);
+    box-shadow: var(--rw-shadow-lg);
+    display: flex; flex-direction: column;
+  }
+  .ai-tab {
+    display: flex; align-items: center; gap: 6px;
+    padding: 9px 12px; border-radius: 999px;
+    background: var(--rw-surface-1); border: 1px solid var(--rw-border-default);
+    color: var(--rw-text-tertiary); font-size: 12px; font-weight: 600;
+    cursor: pointer; flex: none;
+  }
+  .ai-tab i { font-size: 12px; }
+  .ai-tab.active {
+    background: rgba(79, 107, 255, 0.15);
+    border-color: var(--rw-border-brand);
+    color: var(--rw-primary);
+  }
+  .ab-chip {
+    padding: 6px 16px; border-radius: 10px; font-size: 13px; font-weight: 700;
+    background: var(--rw-surface-2); color: var(--rw-text-tertiary); cursor: pointer;
+  }
+  .ab-chip.active { background: rgba(79,107,255,.15); border: 1px solid var(--rw-border-brand); color: var(--rw-primary); }
+</style>
+</head>
+<body>
+<div class="phone" style="background:#060609;">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <!-- 背景中被压暗的编辑器 -->
+  <div class="flex-1 relative min-h-0">
+    <div class="absolute inset-0 px-4 pt-1 opacity-60 blur-[1px]">
+      <div class="ruler mb-1"><b>1:00</b><b>2:00</b><b>3:00</b><b>4:00</b><b>5:00</b></div>
+      <div class="rounded-[10px] overflow-hidden mb-2" style="height:70px;background:var(--rw-surface-1);border:1px solid var(--rw-border-default);">
+        <div class="wave px-1" data-seed="42" data-bars="72" style="color:var(--rw-primary-300);"></div>
+        <div class="wave-selection" style="left:22%;width:31%;"></div>
+      </div>
+      <div class="rounded-[10px] overflow-hidden" style="height:46px;background:var(--rw-surface-1);border:1px solid var(--rw-border-default);">
+        <div class="wave px-1" data-seed="77" data-bars="72" style="color:var(--rw-primary-300);opacity:.5;"></div>
+      </div>
+    </div>
+    <div class="absolute inset-0" style="background:rgba(6,6,9,0.55);"></div>
+  </div>
+
+  <!-- 底部面板 -->
+  <div class="sheet no-shrink" style="height:560px;">
+    <div class="flex justify-center pt-2.5 pb-1">
+      <span style="width:36px;height:4px;border-radius:2px;background:var(--rw-surface-4);"></span>
+    </div>
+
+    <div class="flex items-center justify-between px-6 pb-3">
+      <span class="text-[17px] font-bold">AI 工具 <span class="pro-badge ml-1">PRO</span></span>
+      <i class="fa-solid fa-xmark t-3 text-[16px] cursor-pointer"></i>
+    </div>
+
+    <!-- 工具切换 -->
+    <div class="no-shrink flex gap-2 px-6 pb-3 overflow-x-auto">
+      <div class="ai-tab active"><i class="fa-solid fa-wand-magic-sparkles"></i>AI 降噪</div>
+      <div class="ai-tab"><i class="fa-solid fa-user-slash"></i>人声分离</div>
+      <div class="ai-tab"><i class="fa-solid fa-volume-xmark"></i>静音检测</div>
+      <div class="ai-tab"><i class="fa-solid fa-bolt"></i>一键增强</div>
+    </div>
+
+    <div class="scroll px-6 pb-2">
+      <!-- 降噪强度 -->
+      <div class="card p-4 mb-2.5">
+        <div class="flex justify-between items-center mb-3">
+          <span class="text-[13px] font-semibold t-2">降噪强度</span>
+          <span class="mono text-[13px] t-brand">65%</span>
+        </div>
+        <div class="slider">
+          <div class="fill" style="width:65%;"></div>
+          <div class="thumb" style="left:65%;"></div>
+        </div>
+        <div class="flex justify-between mono text-[9px] t-4 mt-2"><span>0%</span><span>100%</span></div>
+      </div>
+
+      <!-- 降噪模式 -->
+      <div class="mb-2.5">
+        <p class="section-label mb-2">降噪模式</p>
+        <div class="grid grid-cols-4 gap-2">
+          <div class="seg active">自动</div>
+          <div class="seg">风噪</div>
+          <div class="seg">电流声</div>
+          <div class="seg">环境声</div>
+        </div>
+      </div>
+
+      <!-- 人声保护 + 噪声学习 -->
+      <div class="card overflow-hidden mb-2.5">
+        <div class="list-row">
+          <div class="ib ib-32"><i class="fa-solid fa-user"></i></div>
+          <div class="flex-1">
+            <p class="text-[13px] font-semibold">人声保护</p>
+            <p class="text-[10px] t-4 mt-0.5">降噪时保持人声频段不失真</p>
+          </div>
+          <div class="toggle on"></div>
+        </div>
+        <div class="divider mx-4"></div>
+        <div class="list-row">
+          <div class="ib ib-32 g-info"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="flex-1">
+            <p class="text-[13px] font-semibold">噪声学习</p>
+            <p class="text-[10px] t-4 mt-0.5">选取参考片段，让 AI 学习噪声特征</p>
+          </div>
+          <span class="text-[11px] t-brand font-medium">选取片段 <i class="fa-solid fa-chevron-right text-[8px]"></i></span>
+        </div>
+      </div>
+
+      <!-- A/B 对比试听 -->
+      <div class="card p-4 mb-2">
+        <p class="section-label mb-3">A / B 对比试听</p>
+        <div class="flex items-center gap-3">
+          <span class="ab-chip active">A 原始</span>
+          <span class="ab-chip">B 降噪后</span>
+          <div class="ml-auto w-9 h-9 rounded-full flex items-center justify-center cursor-pointer" style="background:var(--rw-primary-gradient);box-shadow:var(--rw-shadow-brand);">
+            <i class="fa-solid fa-play text-[11px] text-white ml-0.5"></i>
+          </div>
+        </div>
+        <div class="mt-3 rounded-[8px] overflow-hidden" style="height:34px;background:var(--rw-surface-1);">
+          <div class="wave px-1" data-seed="42" data-bars="80" style="color:var(--rw-primary-300);"></div>
+          <div class="playhead" style="left:46%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="no-shrink px-6 pt-2 pb-7">
+      <button class="btn btn-primary w-full">
+        <i class="fa-solid fa-wand-magic-sparkles text-[15px]"></i>应用降噪
+      </button>
+      <p class="mono text-center text-[10px] t-4 mt-2.5">预计处理 12 秒 · 00:12:47 音频 · 本地 AI 引擎</p>
+    </div>
+  </div>
+
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

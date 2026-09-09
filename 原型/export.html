@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-009 · 导出 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+  .fmt-chip {
+    padding: 9px 0; border-radius: 10px; text-align: center; cursor: pointer;
+    background: var(--rw-surface-1); border: 1px solid var(--rw-border-default);
+    font-size: 12px; font-weight: 700; color: var(--rw-text-tertiary);
+    position: relative;
+  }
+  .fmt-chip.active { background: rgba(79,107,255,0.15); border-color: var(--rw-border-brand); color: var(--rw-primary); }
+  .fmt-chip .pro-badge { position: absolute; top: -6px; right: -4px; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>编辑</span></div>
+    <span class="nav-title">导出</span>
+    <div class="nav-right"></div>
+  </div>
+
+  <div class="scroll px-6 pb-5">
+    <!-- 文件命名 -->
+    <p class="section-label mt-2 mb-2">文件名</p>
+    <input class="input" value="第42期播客_成品" spellcheck="false">
+
+    <!-- 输出格式 -->
+    <p class="section-label mt-5 mb-2">输出格式</p>
+    <div class="grid grid-cols-5 gap-2">
+      <div class="fmt-chip">MP3</div>
+      <div class="fmt-chip">M4A</div>
+      <div class="fmt-chip active">WAV</div>
+      <div class="fmt-chip">AAC</div>
+      <div class="fmt-chip"><span class="pro-badge">PRO</span>FLAC</div>
+    </div>
+
+    <!-- 质量参数 -->
+    <p class="section-label mt-5 mb-2">质量参数</p>
+    <div class="card overflow-hidden">
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">采样率</span>
+        <div class="ml-auto flex gap-1.5">
+          <span class="seg" style="min-width:56px;padding:7px 4px;">44.1k</span>
+          <span class="seg active" style="min-width:44px;padding:7px 4px;">48k</span>
+          <span class="seg" style="min-width:44px;padding:7px 4px;">96k</span>
+        </div>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">位深</span>
+        <div class="ml-auto flex gap-1.5">
+          <span class="seg" style="min-width:40px;padding:7px 4px;">16</span>
+          <span class="seg active" style="min-width:40px;padding:7px 4px;">24</span>
+          <span class="seg" style="min-width:40px;padding:7px 4px;">32f</span>
+        </div>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <span class="text-[13px] font-medium t-2">声道</span>
+        <div class="ml-auto flex gap-1.5">
+          <span class="seg" style="min-width:52px;padding:7px 4px;">单声道</span>
+          <span class="seg active" style="min-width:52px;padding:7px 4px;">立体声</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 预估大小 -->
+    <div class="card flex items-center justify-between p-4 mt-4">
+      <div class="flex items-center gap-3">
+        <div class="ib ib-40 g-info"><i class="fa-solid fa-hard-drive"></i></div>
+        <div>
+          <p class="text-[13px] font-semibold">预估文件大小</p>
+          <p class="text-[10px] t-4 mt-0.5">WAV · 48kHz / 24bit · 立体声</p>
+        </div>
+      </div>
+      <span class="mono text-[15px] font-bold t-brand">128.4 MB</span>
+    </div>
+
+    <!-- 更多选项 -->
+    <p class="section-label mt-5 mb-2">更多选项</p>
+    <div class="card overflow-hidden">
+      <div class="list-row">
+        <div class="ib ib-32 g-ringtone"><i class="fa-solid fa-bell"></i></div>
+        <span class="text-[13px] font-medium t-2 flex-1">同时导出为铃声 (.m4r)</span>
+        <div class="toggle"></div>
+      </div>
+      <div class="divider mx-4"></div>
+      <div class="list-row">
+        <div class="ib ib-32 g-meta"><i class="fa-solid fa-film"></i></div>
+        <span class="text-[13px] font-medium t-2 flex-1">导出项目文件 (.rewave)</span>
+        <div class="toggle"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
+    <button class="btn btn-primary w-full">
+      <i class="fa-solid fa-arrow-up-from-bracket text-[14px]"></i>导出并分享
+    </button>
+    <button class="btn btn-secondary w-full mt-2.5">仅保存到「文件」</button>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

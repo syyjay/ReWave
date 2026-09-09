@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReWave · 高保真原型总览</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+  body {
+    background: #060609;
+    display: block;
+    min-height: 100vh;
+    font-family: var(--rw-font-sans);
+  }
+  .container { max-width: 1560px; margin: 0 auto; padding: 0 32px 80px; }
+
+  /* ===== 顶部品牌区 ===== */
+  .hero { padding: 56px 0 36px; border-bottom: 1px solid var(--rw-border-subtle); }
+  .hero h1 { font-size: 40px; font-weight: 800; letter-spacing: -1px; margin: 14px 0 10px; }
+  .hero p.desc { font-size: 15px; color: var(--rw-text-secondary); max-width: 640px; line-height: 1.7; }
+  .meta-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .meta-chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 12px; color: var(--rw-text-secondary);
+    background: var(--rw-surface-1); border: 1px solid var(--rw-border-default);
+    padding: 7px 14px; border-radius: 999px;
+  }
+  .meta-chip i { color: var(--rw-primary); font-size: 11px; }
+
+  /* ===== 分析区 ===== */
+  .analysis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 34px; }
+  .ana-card { background: var(--rw-surface-1); border: 1px solid var(--rw-border-default); border-radius: 18px; padding: 22px; }
+  .ana-card h3 { font-size: 15px; font-weight: 700; margin: 12px 0 10px; }
+  .ana-card > i { font-size: 18px; color: var(--rw-primary); }
+  .ana-card p { font-size: 12.5px; line-height: 1.8; color: var(--rw-text-tertiary); margin: 0; }
+  .ana-card b { color: var(--rw-text-secondary); font-weight: 600; }
+  @media (max-width: 980px) { .analysis { grid-template-columns: 1fr; } }
+
+  /* ===== 分组 ===== */
+  .group { margin-top: 56px; }
+  .group-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; }
+  .group-head .no { font-family: var(--rw-font-mono); font-size: 13px; color: var(--rw-primary); }
+  .group-head h2 { font-size: 22px; font-weight: 800; margin: 0; }
+  .group-head .flow { font-size: 12px; color: var(--rw-text-quaternary); font-family: var(--rw-font-mono); }
+  .group-desc { font-size: 13px; color: var(--rw-text-tertiary); line-height: 1.7; margin-bottom: 26px; max-width: 760px; }
+
+  /* ===== 界面网格 ===== */
+  .screens { display: flex; flex-wrap: wrap; gap: 36px 32px; }
+  .screen-card { --s: 0.82; }
+  .screen-card .cap {
+    display: flex; align-items: center; gap: 10px;
+    width: calc(405px * var(--s)); margin-bottom: 14px;
+  }
+  .cap .id {
+    font-family: var(--rw-font-mono); font-size: 10px; font-weight: 700;
+    color: var(--rw-primary); background: rgba(79,107,255,0.12);
+    padding: 3px 7px; border-radius: 6px; flex: none;
+  }
+  .cap .name { font-size: 13.5px; font-weight: 700; }
+  .cap .file { font-family: var(--rw-font-mono); font-size: 10px; color: var(--rw-text-quaternary); margin-left: auto; }
+  .cap .pri { flex: none; }
+  .bezel {
+    width: calc(405px * var(--s));
+    height: calc(864px * var(--s));
+    border-radius: calc(54px * var(--s));
+    padding: calc(6px * var(--s));
+    background: linear-gradient(160deg, #4a4a52 0%, #1e1e24 30%, #35353d 70%, #16161b 100%);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.06);
+  }
+  .bezel .clip {
+    width: 405px; height: 864px;
+    transform: scale(var(--s));
+    transform-origin: top left;
+    border-radius: 48px;
+    overflow: hidden;
+    background: #000;
+  }
+  .bezel iframe { width: 393px; height: 852px; border: 0; display: block; margin: 6px; border-radius: 46px; background: #0A0A0F; }
+
+  /* ===== 缩放控制 ===== */
+  .zoom-bar {
+    position: fixed; right: 26px; bottom: 26px; z-index: 50;
+    display: flex; align-items: center; gap: 4px;
+    background: rgba(18,18,26,0.92); backdrop-filter: blur(16px);
+    border: 1px solid var(--rw-border-default);
+    padding: 6px; border-radius: 14px;
+    box-shadow: var(--rw-shadow-lg);
+  }
+  .zoom-bar button {
+    font-family: var(--rw-font-mono); font-size: 12px;
+    color: var(--rw-text-tertiary); background: none; border: none;
+    padding: 8px 13px; border-radius: 9px; cursor: pointer;
+  }
+  .zoom-bar button.on { background: rgba(79,107,255,0.16); color: var(--rw-primary); }
+
+  footer { margin-top: 72px; padding-top: 28px; border-top: 1px solid var(--rw-border-subtle); text-align: center; }
+  footer p { font-size: 12px; color: var(--rw-text-quaternary); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ============ 品牌区 ============ -->
+  <header class="hero">
+    <div class="flex items-center gap-3.5">
+      <div class="ib g-brand" style="width:52px;height:52px;border-radius:16px;box-shadow:var(--rw-shadow-brand);">
+        <i class="fa-solid fa-wave-square" style="font-size:22px;"></i>
+      </div>
+      <div class="section-label" style="font-size:12px;">HIGH-FIDELITY PROTOTYPE · v2.0</div>
+    </div>
+    <h1><span class="grad-text">ReWave</span> 高保真原型</h1>
+    <p class="desc">移动端「音频编辑 + 格式转换」双引擎工具的原型总览。深色主题、品牌渐变（#4F6BFF → #7C3AED）、Inter + JetBrains Mono 字体，全部界面按 iPhone 15 Pro（393×852 · Dynamic Island）绘制，可直接作为开发交付依据。</p>
+    <div class="meta-chips">
+      <span class="meta-chip"><i class="fa-solid fa-mobile-screen"></i>20 个界面 · iPhone 15 Pro 393×852</span>
+      <span class="meta-chip"><i class="fa-solid fa-palette"></i>深色主题 · 品牌 Token 全量落地</span>
+      <span class="meta-chip"><i class="fa-solid fa-code"></i>HTML + Tailwind + FontAwesome</span>
+      <span class="meta-chip"><i class="fa-solid fa-wave-square"></i>波形为脚本程序化生成</span>
+    </div>
+
+    <!-- UX 分析 -->
+    <div class="analysis">
+      <div class="ana-card">
+        <i class="fa-solid fa-users-viewfinder"></i>
+        <h3>用户与核心诉求</h3>
+        <p>五类目标用户（播客主播 / 短视频博主 / 音乐爱好者 / 办公人士 / 普通用户），核心诉求收敛为三条：<b>快速处理</b>（剪辑、降噪一步到位）、<b>批量提效</b>（一次 100+ 文件）、<b>体积可控</b>（压缩 + 格式转换）。高频路径：录音 → 编辑 → 导出；视频 → 提取 → 转换。</p>
+      </div>
+      <div class="ana-card">
+        <i class="fa-solid fa-route"></i>
+        <h3>信息架构与交互逻辑</h3>
+        <p>4 Tab 结构：<b>首页</b>聚合快捷入口与最近记录，<b>编辑</b>承载波形工作台与 AI 工具，<b>转换</b>以 9 宫格工具覆盖全场景，<b>设置</b>管理订阅与偏好。所有子页面均为「选择文件 → 配置参数 → 预估反馈 → 执行」统一心智，降低学习成本。</p>
+      </div>
+      <div class="ana-card">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+        <h3>关键设计决策</h3>
+        <p>处理类页面一律提供<b>体积/耗时预估</b>（如 342MB → 12MB 对比条）建立信任感；<b>PRO 能力前置展示、点击解锁</b>（订阅引导页统一承接）；危险操作（删除源文件）默认关闭；批量任务支持后台运行并可随时查看逐文件进度。</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ 分组展示 ============ -->
+  <section class="group">
+    <div class="group-head"><span class="no">01</span><h2>新手引导与首页</h2><span class="flow">onboarding → home</span></div>
+    <p class="group-desc">首次启动用 3 页讲清三大卖点（编辑 / 转换 / 智能处理），随后进入首页。首页是效率中枢：6 宫格快捷工具直达高频功能，最近编辑与最近转换让用户一键回到上次任务。</p>
+    <div class="screens">
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-001</span><span class="name">新手引导</span><span class="chip chip-info pri">P0</span><span class="file">onboarding.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="onboarding.html" loading="lazy" title="新手引导"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-002</span><span class="name">首页</span><span class="chip chip-info pri">P0</span><span class="file">home.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="home.html" loading="lazy" title="首页"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-019</span><span class="name">项目库</span><span class="chip chip-gray pri">P2</span><span class="file">projects.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="projects.html" loading="lazy" title="项目库"></iframe></div></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="group-head"><span class="no">02</span><h2>录音与编辑工作台</h2><span class="flow">recorder → editor → ai-tools</span></div>
+    <p class="group-desc">核心生产力链路：录音界面提供实时波形、电平表与削波警告；编辑工作台支持多轨（最多 4 轨）、选区、时间标尺与完整工具栏；AI 工具以底部面板形态叠加出现，不打断编辑上下文。</p>
+    <div class="screens">
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-008</span><span class="name">录音界面</span><span class="chip chip-info pri">P0</span><span class="file">recorder.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="recorder.html" loading="lazy" title="录音界面"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-003</span><span class="name">编辑工作台</span><span class="chip chip-info pri">P0</span><span class="file">editor.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="editor.html" loading="lazy" title="编辑工作台"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-004</span><span class="name">AI 工具面板</span><span class="chip chip-info pri">P0</span><span class="file">ai-tools.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="ai-tools.html" loading="lazy" title="AI 工具面板"></iframe></div></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="group-head"><span class="no">03</span><h2>转换中心与工具集</h2><span class="flow">converter → 各子工具</span></div>
+    <p class="group-desc">9 宫格覆盖格式转换、批量、压缩、合并、分割、视频提取、铃声、元数据与文件信息。所有工具页遵循统一模式：源文件卡片 → 参数配置 → 体积/耗时预估 → 主 CTA。</p>
+    <div class="screens">
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-005</span><span class="name">转换中心</span><span class="chip chip-info pri">P0</span><span class="file">converter.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="converter.html" loading="lazy" title="转换中心"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-012</span><span class="name">格式转换</span><span class="chip chip-warn pri">P1</span><span class="file">convert-single.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="convert-single.html" loading="lazy" title="格式转换"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-006</span><span class="name">批量处理</span><span class="chip chip-info pri">P0</span><span class="file">batch.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="batch.html" loading="lazy" title="批量处理"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-020</span><span class="name">批量处理进度</span><span class="chip chip-warn pri">P1</span><span class="file">batch-progress.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="batch-progress.html" loading="lazy" title="批量处理进度"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-007</span><span class="name">音频压缩</span><span class="chip chip-info pri">P0</span><span class="file">compress.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="compress.html" loading="lazy" title="音频压缩"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-013</span><span class="name">音频合并</span><span class="chip chip-warn pri">P1</span><span class="file">merge.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="merge.html" loading="lazy" title="音频合并"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-014</span><span class="name">音频分割</span><span class="chip chip-warn pri">P1</span><span class="file">split.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="split.html" loading="lazy" title="音频分割"></iframe></div></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="group-head"><span class="no">04</span><h2>导出、订阅与设置</h2><span class="flow">export → paywall · settings</span></div>
+    <p class="group-desc">导出页集中所有输出选项（命名 / 格式 / 质量参数 / 预估大小）；订阅引导页用功能对比 + 三档方案（¥18/¥128/¥298）+ 免费试用 CTA 承接全部 PRO 入口。设置页采用「入口收敛」：主页仅保留高频项（约 10 行一屏），录音/导出默认参数收纳到二级页。</p>
+    <div class="screens">
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-009</span><span class="name">导出界面</span><span class="chip chip-info pri">P0</span><span class="file">export.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="export.html" loading="lazy" title="导出界面"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-011</span><span class="name">订阅引导</span><span class="chip chip-info pri">P0</span><span class="file">paywall.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="paywall.html" loading="lazy" title="订阅引导"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-010</span><span class="name">设置</span><span class="chip chip-warn pri">P1</span><span class="file">settings.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="settings.html" loading="lazy" title="设置"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-021</span><span class="name">设置 · 默认参数</span><span class="chip chip-warn pri">P1</span><span class="file">settings-defaults.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="settings-defaults.html" loading="lazy" title="默认参数"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-022</span><span class="name">设置 · 帮助与反馈</span><span class="chip chip-gray pri">P2</span><span class="file">settings-help.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="settings-help.html" loading="lazy" title="帮助与反馈"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-023</span><span class="name">设置 · 隐私与条款</span><span class="chip chip-gray pri">P2</span><span class="file">settings-legal.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="settings-legal.html" loading="lazy" title="隐私与条款"></iframe></div></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="group">
+    <div class="group-head"><span class="no">05</span><h2>扩展工具</h2><span class="flow">metadata · file-info · ringtone · video-extract</span></div>
+    <p class="group-desc">面向细分场景的补充工具：元数据编辑（封面 + ID3 字段）、文件信息（技术参数 + 响度分析报告）、铃声制作（40 秒限制 + 淡入淡出）、视频提取音频（真实缩略图 + 音轨检测）。</p>
+    <div class="screens">
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-015</span><span class="name">元数据编辑</span><span class="chip chip-gray pri">P2</span><span class="file">metadata.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="metadata.html" loading="lazy" title="元数据编辑"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-016</span><span class="name">文件信息</span><span class="chip chip-gray pri">P2</span><span class="file">file-info.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="file-info.html" loading="lazy" title="文件信息"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-017</span><span class="name">铃声制作</span><span class="chip chip-gray pri">P2</span><span class="file">ringtone.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="ringtone.html" loading="lazy" title="铃声制作"></iframe></div></div>
+      </figure>
+      <figure class="screen-card" style="margin:0;">
+        <div class="cap"><span class="id">P-018</span><span class="name">视频提取音频</span><span class="chip chip-gray pri">P2</span><span class="file">video-extract.html</span></div>
+        <div class="bezel"><div class="clip"><iframe src="video-extract.html" loading="lazy" title="视频提取音频"></iframe></div></div>
+      </figure>
+    </div>
+  </section>
+
+  <footer>
+    <p>ReWave · 重新塑造每一段波形 —— 原型基于《ReWave 完整产品设计文档 v2.0》生成，设计 Token 与组件规范可直接映射为 SwiftUI 实现。</p>
+  </footer>
+</div>
+
+<!-- 缩放控制 -->
+<div class="zoom-bar">
+  <span class="mono" style="font-size:10px;color:var(--rw-text-quaternary);padding:0 4px;">缩放</span>
+  <button data-s="0.6">60%</button>
+  <button data-s="0.82" class="on">82%</button>
+  <button data-s="1">100%</button>
+</div>
+
+<script>
+  document.querySelectorAll('.zoom-bar button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('.zoom-bar button').forEach(function (x) { x.classList.remove('on'); });
+      b.classList.add('on');
+      var s = b.dataset.s;
+      document.querySelectorAll('.screen-card').forEach(function (c) { c.style.setProperty('--s', s); });
+    });
+  });
+</script>
+</body>
+</html>

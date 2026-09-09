@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-011 · 订阅引导 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+  .plan {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    padding: 12px 4px; border-radius: 14px; cursor: pointer;
+    background: var(--rw-surface-1); border: 1px solid var(--rw-border-default);
+    transition: all .15s;
+  }
+  .plan.active { background: rgba(79,107,255,0.12); border-color: var(--rw-border-brand); }
+  .plan .rec {
+    position: absolute; top: -8px; left: 50%; transform: translateX(-50%);
+    font-size: 8px; font-weight: 700; white-space: nowrap;
+    background: var(--rw-primary-gradient); color: #fff;
+    padding: 2px 7px; border-radius: 999px;
+  }
+  .feat { display: flex; align-items: center; gap: 10px; padding: 5.5px 0; }
+  .feat i { width: 16px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+  <div class="absolute -top-24 left-1/2 -translate-x-1/2" style="width:460px;height:460px;background:radial-gradient(circle,rgba(79,107,255,.18) 0%,rgba(124,58,237,.08) 45%,transparent 70%);pointer-events:none;"></div>
+
+  <div class="status-bar relative z-10">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar relative z-10">
+    <div class="nav-left"></div>
+    <div class="nav-title"></div>
+    <div class="nav-right"><i class="fa-solid fa-xmark t-3 text-[17px] cursor-pointer"></i></div>
+  </div>
+
+  <div class="scroll relative z-10 px-6 pb-3">
+    <!-- 品牌区 -->
+    <div class="flex flex-col items-center mt-3">
+      <div class="ib g-brand" style="width:64px;height:64px;border-radius:20px;box-shadow:var(--rw-shadow-brand-strong);">
+        <i class="fa-solid fa-crown" style="font-size:26px;"></i>
+      </div>
+      <h1 class="mt-4 text-[26px] font-extrabold tracking-tight">ReWave <span class="grad-text">Pro</span></h1>
+      <p class="mt-1.5 text-[13px] t-3">解锁全部专业能力，重塑每一段波形</p>
+    </div>
+
+    <!-- 功能对比 -->
+    <div class="card p-4 mt-6">
+      <div class="feat"><i class="fa-solid fa-check t-success text-[12px]"></i><span class="text-[13px] t-2">批量处理 · 一次转换 100+ 文件</span><span class="pro-badge ml-auto">PRO</span></div>
+      <div class="feat"><i class="fa-solid fa-check t-success text-[12px]"></i><span class="text-[13px] t-2">AI 降噪 · 人声分离 · 静音检测 · 增强</span><span class="pro-badge ml-auto">PRO</span></div>
+      <div class="feat"><i class="fa-solid fa-check t-success text-[12px]"></i><span class="text-[13px] t-2">全部 11 种格式导出（FLAC / OPUS…）</span><span class="pro-badge ml-auto">PRO</span></div>
+      <div class="feat"><i class="fa-solid fa-check t-success text-[12px]"></i><span class="text-[13px] t-2">最高 192kHz / 32bit 导出音质</span><span class="pro-badge ml-auto">PRO</span></div>
+      <div class="feat"><i class="fa-solid fa-check t-success text-[12px]"></i><span class="text-[13px] t-2">无水印导出 · 元数据编辑 · 4 轨混音</span><span class="pro-badge ml-auto">PRO</span></div>
+    </div>
+
+    <!-- 方案选择 -->
+    <div class="grid grid-cols-3 gap-2.5 mt-6">
+      <div class="plan">
+        <span class="text-[11px] t-3">月付</span>
+        <span class="text-[17px] font-extrabold">¥18</span>
+        <span class="text-[9px] t-4">/ 月</span>
+      </div>
+      <div class="plan active">
+        <span class="rec">推荐 · 省 41%</span>
+        <span class="text-[11px] t-3">年付</span>
+        <span class="text-[17px] font-extrabold t-brand">¥128</span>
+        <span class="text-[9px] t-4">¥10.7 / 月</span>
+      </div>
+      <div class="plan">
+        <span class="text-[11px] t-3">买断</span>
+        <span class="text-[17px] font-extrabold">¥298</span>
+        <span class="text-[9px] t-4">终身使用</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-shrink relative z-10 px-6 pb-8 pt-2" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 26%);">
+    <button class="btn btn-primary w-full">开始 3 天免费试用</button>
+    <div class="flex justify-center gap-6 mt-4">
+      <span class="text-[12px] t-3 cursor-pointer">恢复购买</span>
+      <span class="text-[12px] t-3 cursor-pointer">隐私政策</span>
+      <span class="text-[12px] t-3 cursor-pointer">使用条款</span>
+    </div>
+    <p class="text-center text-[9px] t-4 mt-3 leading-relaxed px-4">
+      试用结束后自动续订，可随时在 App Store 取消。年付方案 ¥128/年，首月可随时取消。
+    </p>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

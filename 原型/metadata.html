@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-015 · 元数据编辑 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <div class="nav-title">元数据编辑 <span class="pro-badge ml-1">PRO</span></div>
+    <div class="nav-right"></div>
+  </div>
+
+  <div class="scroll px-6 pb-5">
+    <!-- 封面 -->
+    <div class="flex items-center gap-5 mt-3">
+      <div class="img-box relative rounded-[16px]" style="width:112px;height:112px;box-shadow:var(--rw-shadow-md);">
+        <div class="absolute inset-0 rounded-[16px] flex items-center justify-center" style="background:var(--rw-surface-2);">
+          <i class="fa-solid fa-music text-[28px]" style="color:var(--rw-text-tertiary);"></i>
+        </div>
+        <img class="absolute inset-0 w-full h-full rounded-[16px]" style="object-fit:cover;" src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?auto=format&fit=crop&w=300&q=80" alt="专辑封面" onerror="this.remove();">
+      </div>
+      <div class="flex-1">
+        <p class="text-[14px] font-semibold truncate">第42期播客_final.mp3</p>
+        <p class="mono text-[10px] t-3 mt-1">ID3v2.4 · 38.6 MB · MP3 320kbps</p>
+        <div class="flex gap-2 mt-4">
+          <button class="btn btn-ghost"><i class="fa-solid fa-camera text-[11px]"></i>更换封面</button>
+          <button class="btn btn-ghost" style="color:var(--rw-error);"><i class="fa-solid fa-trash-can text-[11px]"></i>移除</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 字段 -->
+    <p class="section-label mt-6 mb-2 px-1">标签信息</p>
+    <div class="flex flex-col gap-2.5">
+      <div>
+        <p class="text-[11px] t-4 mb-1.5 px-1">标题</p>
+        <input class="input" value="第42期：混音的秘密" spellcheck="false">
+      </div>
+      <div>
+        <p class="text-[11px] t-4 mb-1.5 px-1">艺术家</p>
+        <input class="input" value="ReWave 播客电台" spellcheck="false">
+      </div>
+      <div>
+        <p class="text-[11px] t-4 mb-1.5 px-1">专辑</p>
+        <input class="input" value="混音工坊 · 第一季" spellcheck="false">
+      </div>
+      <div class="grid grid-cols-3 gap-2.5">
+        <div>
+          <p class="text-[11px] t-4 mb-1.5 px-1">年份</p>
+          <input class="input mono" value="2025" spellcheck="false">
+        </div>
+        <div>
+          <p class="text-[11px] t-4 mb-1.5 px-1">音轨</p>
+          <input class="input mono" value="04/12" spellcheck="false">
+        </div>
+        <div>
+          <p class="text-[11px] t-4 mb-1.5 px-1">碟片</p>
+          <input class="input mono" value="1/1" spellcheck="false">
+        </div>
+      </div>
+      <div>
+        <p class="text-[11px] t-4 mb-1.5 px-1">流派</p>
+        <div class="flex gap-2 flex-wrap">
+          <span class="seg active" style="padding:8px 14px;">Podcast</span>
+          <span class="seg" style="padding:8px 14px;">流行</span>
+          <span class="seg" style="padding:8px 14px;">摇滚</span>
+          <span class="seg" style="padding:8px 14px;">古典</span>
+          <span class="seg" style="padding:8px 14px;">电子</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-shrink px-6 pt-3 pb-7" style="background:linear-gradient(180deg,transparent,var(--rw-bg-base) 30%);">
+    <button class="btn btn-primary w-full">
+      <i class="fa-solid fa-floppy-disk text-[14px]"></i>保存修改
+    </button>
+    <p class="text-center text-[10px] t-4 mt-2">修改将写入文件 ID3 标签，不影响音频数据</p>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

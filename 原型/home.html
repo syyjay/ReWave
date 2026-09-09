@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-002 · 首页 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="scroll pb-4">
+    <!-- 页头 -->
+    <div class="page-head">
+      <div>
+        <h1 class="page-title grad-text" style="font-size:32px;">ReWave</h1>
+        <p class="mt-1 text-[12px] t-3">重新塑造每一段波形</p>
+      </div>
+      <div class="flex gap-2">
+        <div class="btn-icon"><i class="fa-solid fa-cloud text-[14px]"></i></div>
+        <div class="btn-icon"><i class="fa-solid fa-bell text-[14px]"></i></div>
+      </div>
+    </div>
+
+    <!-- 快捷工具 6 宫格 -->
+    <div class="px-6 mt-5">
+      <div class="grid grid-cols-3 gap-x-3 gap-y-5">
+        <div class="flex flex-col items-center gap-2 cursor-pointer">
+          <div class="ib ib-48 g-record"><i class="fa-solid fa-microphone"></i></div>
+          <span class="text-[12px] font-medium t-2">录音</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 cursor-pointer">
+          <div class="ib ib-48"><i class="fa-solid fa-scissors"></i></div>
+          <span class="text-[12px] font-medium t-2">剪辑</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 cursor-pointer">
+          <div class="ib ib-48 g-convert"><i class="fa-solid fa-shuffle"></i></div>
+          <span class="text-[12px] font-medium t-2">格式转换</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 cursor-pointer relative">
+          <div class="ib ib-48 g-ai"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <span class="text-[12px] font-medium t-2">AI 降噪</span>
+          <span class="chip chip-info absolute -top-1.5 -right-1" style="font-size:8px;padding:1px 5px;">3次</span>
+        </div>
+        <div class="flex flex-col items-center gap-2 cursor-pointer relative">
+          <div class="ib ib-48 g-separate"><i class="fa-solid fa-user-slash"></i></div>
+          <span class="text-[12px] font-medium t-2">人声分离 <span class="pro-badge ml-0.5">PRO</span></span>
+        </div>
+        <div class="flex flex-col items-center gap-2 cursor-pointer relative">
+          <div class="ib ib-48 g-batch"><i class="fa-solid fa-layer-group"></i></div>
+          <span class="text-[12px] font-medium t-2">批量处理 <span class="pro-badge ml-0.5">PRO</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 最近编辑 -->
+    <div class="px-6 mt-7">
+      <div class="flex items-center justify-between mb-3">
+        <span class="section-label">最近编辑</span>
+        <span class="text-[12px] t-brand font-medium cursor-pointer">查看全部 <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
+      </div>
+      <div class="flex flex-col gap-2.5">
+        <div class="card flex items-center gap-3 p-3.5 cursor-pointer">
+          <div class="ib ib-40 g-brand"><i class="fa-solid fa-podcast"></i></div>
+          <div class="flex-1 min-w-0">
+            <p class="text-[14px] font-semibold truncate">第42期播客 · 粗剪</p>
+            <div class="wave mt-1.5" data-seed="42" data-bars="46" style="height:20px;color:var(--rw-primary-300);"></div>
+            <p class="mono mt-1.5 text-[10px] t-3">WAV · 00:12:47 · 昨天 21:04</p>
+          </div>
+          <i class="fa-solid fa-play text-[12px] t-3"></i>
+        </div>
+        <div class="card flex items-center gap-3 p-3.5 cursor-pointer">
+          <div class="ib ib-40 g-merge"><i class="fa-solid fa-headphones"></i></div>
+          <div class="flex-1 min-w-0">
+            <p class="text-[14px] font-semibold truncate">会议室录音 0905</p>
+            <div class="wave mt-1.5" data-seed="9" data-bars="46" style="height:20px;color:var(--rw-primary-300);"></div>
+            <p class="mono mt-1.5 text-[10px] t-3">M4A · 00:32:15 · 3 天前</p>
+          </div>
+          <i class="fa-solid fa-play text-[12px] t-3"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- 最近转换 -->
+    <div class="px-6 mt-6">
+      <div class="flex items-center justify-between mb-3">
+        <span class="section-label">最近转换</span>
+        <span class="text-[12px] t-brand font-medium cursor-pointer">全部记录 <i class="fa-solid fa-chevron-right text-[9px]"></i></span>
+      </div>
+      <div class="card overflow-hidden">
+        <div class="list-row">
+          <div class="ib ib-40 g-convert"><i class="fa-solid fa-shuffle"></i></div>
+          <div class="flex-1 min-w-0">
+            <p class="text-[13px] font-semibold truncate">播客raw → MP3</p>
+            <p class="mono mt-0.5 text-[10px] t-3">WAV → MP3 · 320kbps · 342.8 MB → 38.6 MB</p>
+          </div>
+          <span class="chip chip-done"><i class="fa-solid fa-circle-check"></i>完成</span>
+        </div>
+        <div class="divider mx-4"></div>
+        <div class="list-row">
+          <div class="ib ib-40 g-ai"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          <div class="flex-1 min-w-0">
+            <p class="text-[13px] font-semibold truncate">采访素材 02 · 降噪</p>
+            <p class="mono mt-0.5 text-[10px] t-3">AI 降噪 · 强度 65% · 风噪模式</p>
+          </div>
+          <span class="chip chip-info"><i class="fa-solid fa-spinner fa-spin"></i>处理中</span>
+        </div>
+        <div class="divider mx-4"></div>
+        <div class="list-row">
+          <div class="ib ib-40 g-compress"><i class="fa-solid fa-compress"></i></div>
+          <div class="flex-1 min-w-0">
+            <p class="text-[13px] font-semibold truncate">会议录音 · 压缩</p>
+            <p class="mono mt-0.5 text-[10px] t-3">M4A → AAC · 128kbps · 96% 缩减</p>
+          </div>
+          <span class="chip chip-done"><i class="fa-solid fa-circle-check"></i>完成</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-bar">
+    <div class="tab-item active"><i class="fa-solid fa-house"></i><span>首页</span></div>
+    <div class="tab-item"><i class="fa-solid fa-scissors"></i><span>编辑</span></div>
+    <div class="tab-item"><i class="fa-solid fa-shuffle"></i><span>转换</span></div>
+    <div class="tab-item"><i class="fa-solid fa-gear"></i><span>设置</span></div>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

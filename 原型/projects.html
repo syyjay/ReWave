@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-019 · 项目管理 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>首页</span></div>
+    <span class="nav-title">项目库</span>
+    <div class="nav-right">
+      <i class="fa-solid fa-arrow-down-a-z t-3 text-[14px] cursor-pointer mr-2.5"></i>
+      <i class="fa-solid fa-plus t-2 text-[15px] cursor-pointer"></i>
+    </div>
+  </div>
+
+  <!-- 搜索 + 筛选 -->
+  <div class="no-shrink px-6 pb-3">
+    <div class="input flex items-center gap-2.5" style="padding:11px 14px;">
+      <i class="fa-solid fa-magnifying-glass text-[13px] t-4"></i>
+      <span class="text-[14px] t-4">搜索项目、文件或格式</span>
+    </div>
+    <div class="grid grid-cols-4 gap-2 mt-3">
+      <div class="seg active">全部 24</div>
+      <div class="seg">工程 9</div>
+      <div class="seg">录音 8</div>
+      <div class="seg">转换 7</div>
+    </div>
+  </div>
+
+  <div class="scroll px-6 pb-4">
+    <div class="flex flex-col gap-2.5">
+      <!-- 项目 1 -->
+      <div class="card flex items-center gap-3 p-3.5">
+        <div class="ib ib-40 g-brand"><i class="fa-solid fa-podcast"></i></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2">
+            <p class="text-[13.5px] font-semibold truncate">第42期播客 · 精剪中</p>
+            <span class="chip chip-info" style="font-size:8px;">工程</span>
+          </div>
+          <div class="wave mt-1.5" data-seed="42" data-bars="48" style="height:18px;color:var(--rw-primary-300);"></div>
+          <p class="mono text-[9px] t-4 mt-1.5">多轨 2/4 · 00:12:47 · 昨天 21:04</p>
+        </div>
+        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer"></i>
+      </div>
+      <!-- 项目 2 -->
+      <div class="card flex items-center gap-3 p-3.5">
+        <div class="ib ib-40 g-merge"><i class="fa-solid fa-headphones"></i></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2">
+            <p class="text-[13.5px] font-semibold truncate">会议室录音 0905</p>
+            <span class="chip chip-gray" style="font-size:8px;">录音</span>
+          </div>
+          <div class="wave mt-1.5" data-seed="9" data-bars="48" style="height:18px;color:var(--rw-primary-300);"></div>
+          <p class="mono text-[9px] t-4 mt-1.5">M4A · 00:32:15 · 3 天前</p>
+        </div>
+        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer"></i>
+      </div>
+      <!-- 项目 3 -->
+      <div class="card flex items-center gap-3 p-3.5">
+        <div class="ib ib-40 g-separate"><i class="fa-solid fa-user-slash"></i></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2">
+            <p class="text-[13.5px] font-semibold truncate">流行单曲 · 人声分离结果</p>
+            <span class="chip chip-done" style="font-size:8px;">完成</span>
+          </div>
+          <div class="wave mt-1.5" data-seed="55" data-bars="48" style="height:18px;color:var(--rw-primary-300);"></div>
+          <p class="mono text-[9px] t-4 mt-1.5">人声.wav + 伴奏.wav · 9月7日</p>
+        </div>
+        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer"></i>
+      </div>
+      <!-- 项目 4 -->
+      <div class="card flex items-center gap-3 p-3.5">
+        <div class="ib ib-40 g-ringtone"><i class="fa-solid fa-bell"></i></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2">
+            <p class="text-[13.5px] font-semibold truncate">新铃声 · 副歌 30s</p>
+            <span class="chip chip-gray" style="font-size:8px;">铃声</span>
+          </div>
+          <div class="wave mt-1.5" data-seed="66" data-bars="48" style="height:18px;color:var(--rw-primary-300);"></div>
+          <p class="mono text-[9px] t-4 mt-1.5">m4r · 00:00:30 · 9月6日</p>
+        </div>
+        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer"></i>
+      </div>
+      <!-- 项目 5 -->
+      <div class="card flex items-center gap-3 p-3.5">
+        <div class="ib ib-40 g-batch"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-2">
+            <p class="text-[13.5px] font-semibold truncate">播客素材包 · 批量转换</p>
+            <span class="chip chip-done" style="font-size:8px;">12 个文件</span>
+          </div>
+          <p class="mono text-[9px] t-4 mt-2">WAV → MP3 · 647.6 MB → 72.9 MB · 今天 09:12</p>
+        </div>
+        <i class="fa-solid fa-ellipsis t-4 text-[13px] cursor-pointer"></i>
+      </div>
+    </div>
+
+    <!-- 存储状态 -->
+    <div class="card p-4 mt-4">
+      <div class="flex items-center justify-between mb-2.5">
+        <span class="text-[12px] t-2"><i class="fa-solid fa-hard-drive mr-1.5 t-4"></i>本地存储</span>
+        <span class="mono text-[11px] t-3">2.8 GB / 5 GB</span>
+      </div>
+      <div class="rounded-full overflow-hidden" style="height:6px;background:rgba(255,255,255,0.06);">
+        <div class="h-full rounded-full" style="width:56%;background:var(--rw-primary-gradient);"></div>
+      </div>
+      <p class="text-[10px] t-4 mt-2.5">开启 iCloud 同步可在多设备访问项目</p>
+    </div>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P-016 · 文件信息 - ReWave</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@200;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/common.css">
+<style>
+  .info-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; }
+  .info-row span { font-size: 12.5px; color: var(--rw-text-secondary); }
+  .info-row b { font-family: var(--rw-font-mono); font-size: 12px; font-weight: 500; color: var(--rw-text-primary); }
+  .mini-bar { height: 4px; border-radius: 2px; background: rgba(255,255,255,0.08); overflow: hidden; }
+  .mini-bar b { display: block; height: 100%; border-radius: 2px; background: var(--rw-primary-gradient); }
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="dynamic-island"></div>
+
+  <div class="status-bar">
+    <span>9:41</span>
+    <div class="sb-right">
+      <i class="fa-solid fa-signal"></i>
+      <i class="fa-solid fa-wifi"></i>
+      <span class="battery"><b></b></span>
+    </div>
+  </div>
+
+  <div class="nav-bar">
+    <div class="nav-left"><span class="nav-back"><i class="fa-solid fa-chevron-left"></i>转换</span></div>
+    <span class="nav-title">文件信息</span>
+    <div class="nav-right"><i class="fa-solid fa-share t-3 text-[14px] cursor-pointer"></i></div>
+  </div>
+
+  <div class="scroll px-6 pb-5">
+    <!-- 文件头 -->
+    <div class="card-elevated p-4 mt-2">
+      <div class="flex items-center gap-3">
+        <div class="ib ib-44 g-info"><i class="fa-solid fa-file-audio"></i></div>
+        <div class="flex-1 min-w-0">
+          <p class="text-[14px] font-semibold truncate">母带_export.flac</p>
+          <p class="mono text-[10px] t-3 mt-0.5">FLAC · 无损 · 2025-09-09 09:41</p>
+        </div>
+        <div class="w-10 h-10 rounded-full flex items-center justify-center cursor-pointer" style="background:var(--rw-primary-gradient);box-shadow:var(--rw-shadow-brand);">
+          <i class="fa-solid fa-play text-[12px] text-white ml-0.5"></i>
+        </div>
+      </div>
+      <div class="mt-3 rounded-[8px] overflow-hidden relative" style="height:40px;background:var(--rw-surface-1);">
+        <div class="wave px-1" data-seed="31" data-bars="80" style="color:var(--rw-primary-300);"></div>
+        <div class="playhead" style="left:22%;"></div>
+      </div>
+    </div>
+
+    <!-- 基本信息 -->
+    <p class="section-label mt-5 mb-2 px-1">基本信息</p>
+    <div class="card overflow-hidden">
+      <div class="info-row"><span>文件名</span><b>母带_export.flac</b></div>
+      <div class="divider mx-4"></div>
+      <div class="info-row"><span>文件大小</span><b>182.4 MB</b></div>
+      <div class="divider mx-4"></div>
+      <div class="info-row"><span>时长</span><b>00:12:47.582</b></div>
+    </div>
+
+    <!-- 技术参数 -->
+    <p class="section-label mt-5 mb-2 px-1">技术参数</p>
+    <div class="card overflow-hidden">
+      <div class="info-row"><span>格式</span><b>FLAC (Free Lossless Audio Codec)</b></div>
+      <div class="divider mx-4"></div>
+      <div class="info-row"><span>编码器</span><b>FLAC 1.4.3 · Level 8</b></div>
+      <div class="divider mx-4"></div>
+      <div class="info-row"><span>采样率</span><b>96.0 kHz</b></div>
+      <div class="divider mx-4"></div>
+      <div class="info-row"><span>位深</span><b>24 bit</b></div>
+      <div class="divider mx-4"></div>
+      <div class="info-row"><span>平均比特率</span><b>1,897 kbps</b></div>
+      <div class="divider mx-4"></div>
+      <div class="info-row"><span>声道</span><b>2 · 立体声</b></div>
+    </div>
+
+    <!-- 音频分析 -->
+    <p class="section-label mt-5 mb-2 px-1 flex items-center gap-2">音频分析 <span class="chip chip-info" style="font-size:8px;">PRO 完整报告</span></p>
+    <div class="card p-4 flex flex-col gap-3.5">
+      <div>
+        <div class="flex justify-between text-[11px] mb-1.5"><span class="t-3">真实峰值 True Peak</span><span class="mono">-0.3 dBTP</span></div>
+        <div class="mini-bar"><b style="width:97%;"></b></div>
+      </div>
+      <div>
+        <div class="flex justify-between text-[11px] mb-1.5"><span class="t-3">均方根 RMS</span><span class="mono">-18.2 dBFS</span></div>
+        <div class="mini-bar"><b style="width:70%;"></b></div>
+      </div>
+      <div>
+        <div class="flex justify-between text-[11px] mb-1.5"><span class="t-3">综合响度 LUFS</span><span class="mono">-16.4 LUFS</span></div>
+        <div class="mini-bar"><b style="width:64%;"></b></div>
+      </div>
+      <div>
+        <div class="flex justify-between text-[11px] mb-1.5"><span class="t-3">动态范围</span><span class="mono">12.1 dB</span></div>
+        <div class="mini-bar"><b style="width:48%;"></b></div>
+      </div>
+      <div class="flex justify-between text-[11px] pt-1" style="border-top:1px solid var(--rw-border-subtle);">
+        <span class="t-3">频率范围</span>
+        <span class="mono">20 Hz – 20.4 kHz</span>
+      </div>
+    </div>
+
+    <!-- 文件信息 -->
+    <p class="section-label mt-5 mb-2 px-1">时间与位置</p>
+    <div class="card overflow-hidden">
+      <div class="info-row"><span>创建日期</span><b>2025-09-09 09:41:23</b></div>
+      <div class="divider mx-4"></div>
+      <div class="info-row"><span>修改日期</span><b>2025-09-09 10:02:47</b></div>
+      <div class="divider mx-4"></div>
+      <div class="info-row"><span>存储位置</span><b>iCloud Drive / ReWave</b></div>
+    </div>
+
+    <!-- 快捷操作 -->
+    <div class="grid grid-cols-2 gap-2.5 mt-5">
+      <button class="btn btn-secondary"><i class="fa-solid fa-scissors text-[13px]"></i>跳转编辑</button>
+      <button class="btn btn-secondary accent"><i class="fa-solid fa-shuffle text-[13px]"></i>跳转转换</button>
+    </div>
+  </div>
+  <div class="home-indicator"></div>
+</div>
+<script src="assets/common.js"></script>
+</body>
+</html>
