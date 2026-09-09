@@ -1,18 +1,81 @@
+# ==========================================
 # macOS
+# ==========================================
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
+# ==========================================
 # Xcode
+# ==========================================
+# 构建产物
 build/
 DerivedData/
-*.xcuserstate
+*.hmap
+*.moved-aside
+*.xcscmblueprint
+*.xccheckout
+
+# 用户个性化配置（界面状态、断点、scheme 管理等）
 xcuserdata/
+*.xcuserstate
+xcdebugger/
 
-# Swift Package Manager
-.build/
-Packages/
-Package.resolved
-
-# Xcode archive and export output
+# 打包与导出产物
 *.xcarchive
 *.ipa
+*.dSYM
 *.dSYM.zip
+*.mobileprovision
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# ==========================================
+# Swift Package Manager
+# ==========================================
+.build/
+Packages/
+# 注意：应用项目应提交 Package.resolved 以锁定依赖版本，故不忽略
+
+# ==========================================
+# CocoaPods（如以后使用）
+# ==========================================
+Pods/
+
+# ==========================================
+# Carthage（如以后使用）
+# ==========================================
+Carthage/Build/
+Carthage/Checkouts/
+
+# ==========================================
+# fastlane（如以后使用）
+# ==========================================
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# ==========================================
+# 其他
+# ==========================================
+# Swift Format 产物
+*.swiftformat
+
+# 版本控制冲突文件
+*.orig
