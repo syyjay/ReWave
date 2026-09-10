@@ -14,22 +14,9 @@
 		7156090B30510D6A002E577C /* ReWave.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReWave.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		7A10000400000000000000D4 /* Exceptions for "ReWave" folder in "ReWave" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 7156090A30510D6A002E577C /* ReWave */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7156090D30510D6A002E577C /* ReWave */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				7A10000400000000000000D4 /* Exceptions for "ReWave" folder in "ReWave" target */,
-			);
 			path = ReWave;
 			sourceTree = "<group>";
 		};
@@ -278,7 +265,6 @@
 				DEVELOPMENT_TEAM = CCX53HT454;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ReWave/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -312,7 +298,6 @@
 				DEVELOPMENT_TEAM = CCX53HT454;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ReWave/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
