@@ -6,13 +6,30 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		7A10000200000000000000B2 /* ThemeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7A10000300000000000000C3 /* ThemeKit */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		7156090B30510D6A002E577C /* ReWave.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReWave.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		7A10000400000000000000D4 /* Exceptions for "ReWave" folder in "ReWave" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 7156090A30510D6A002E577C /* ReWave */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		7156090D30510D6A002E577C /* ReWave */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				7A10000400000000000000D4 /* Exceptions for "ReWave" folder in "ReWave" target */,
+			);
 			path = ReWave;
 			sourceTree = "<group>";
 		};
@@ -23,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A10000200000000000000B2 /* ThemeKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +83,7 @@
 			);
 			name = ReWave;
 			packageProductDependencies = (
+				7A10000300000000000000C3 /* ThemeKit */,
 			);
 			productName = ReWave;
 			productReference = 7156090B30510D6A002E577C /* ReWave.app */;
@@ -94,6 +113,9 @@
 			);
 			mainGroup = 7156090230510D6A002E577C;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				7A10000100000000000000A1 /* XCLocalSwiftPackageReference "Packages/ThemeKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7156090C30510D6A002E577C /* Products */;
 			projectDirPath = "";
@@ -256,6 +278,7 @@
 				DEVELOPMENT_TEAM = CCX53HT454;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReWave/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -289,6 +312,7 @@
 				DEVELOPMENT_TEAM = CCX53HT454;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ReWave/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -334,6 +358,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		7A10000100000000000000A1 /* XCLocalSwiftPackageReference "Packages/ThemeKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/ThemeKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7A10000300000000000000C3 /* ThemeKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ThemeKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7156090330510D6A002E577C /* Project object */;
 }

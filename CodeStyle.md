@@ -13,6 +13,7 @@
 - 遵循 Swift API Design Guidelines，优先 let / struct / guard 提前返回。
 - 命名：类型 UpperCamelCase，变量函数 lowerCamelCase，布尔 is/has/should 前缀。
 - View body ≤ 40 行，超出提取计算属性或子 View。公开 API 写 /// 文档注释。
+- 新建的文件，必须包含作者、日期等文件头信息。作者默认为当前登录系统用户，日期为当前系统时间
 
 ## 代码质量
 - **极简第一**：最少代码实现功能，拒绝过度设计。能用标准库不自造轮子，不写 YAGNI 代码。
